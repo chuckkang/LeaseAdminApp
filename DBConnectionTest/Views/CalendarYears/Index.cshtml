@@ -1,0 +1,33 @@
+﻿@model IEnumerable<DBConnectionTest.Models.CalendarYear>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.CalYear)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.CalYear)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.CalendarYearID }) |
+            @Html.ActionLink("Details", "Details", new { id=item.CalendarYearID }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.CalendarYearID })
+        </td>
+    </tr>
+}
+
+</table>

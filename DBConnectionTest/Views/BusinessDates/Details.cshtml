@@ -1,0 +1,26 @@
+﻿@model DBConnectionTest.Models.BusinessDate
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>BusinessDate</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.BusinessDay)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.BusinessDay)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.DateID }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

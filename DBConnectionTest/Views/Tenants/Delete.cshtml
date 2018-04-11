@@ -1,0 +1,145 @@
+﻿@model DBConnectionTest.Models.Tenant
+
+@{
+    ViewBag.Title = "Delete";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Delete</h2>
+
+<h3>Are you sure you want to delete this?</h3>
+<div>
+    <h4>Tenant</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.TenantName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TenantName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Addl_Address)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Addl_Address)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.TenantAddress)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TenantAddress)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.TenantCity)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TenantCity)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.TenantState)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TenantState)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.TenantZip)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TenantZip)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.BillingAddress)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.BillingAddress)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.BillingAdditional)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.BillingAdditional)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.BillingCity)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.BillingCity)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.BillingState)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.BillingState)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.BillingZip)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.BillingZip)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.BillingContact)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.BillingContact)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.BillingContactPhone)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.BillingContactPhone)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.BillingContactEmail)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.BillingContactEmail)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.AdditionalInfo)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.AdditionalInfo)
+        </dd>
+
+    </dl>
+
+    @using (Html.BeginForm()) {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input type="submit" value="Delete" class="btn btn-default" /> |
+            @Html.ActionLink("Back to List", "Index")
+        </div>
+    }
+</div>

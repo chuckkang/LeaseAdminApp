@@ -1,0 +1,26 @@
+﻿@model DBConnectionTest.Models.CalendarYear
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>CalendarYear</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.CalYear)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.CalYear)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.CalendarYearID }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

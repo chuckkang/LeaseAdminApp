@@ -1,0 +1,69 @@
+﻿@model IEnumerable<DBConnectionTest.Models.ExpenseDetails>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.ExpenseId)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ExpenseResponsibilityId)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ExpenseType)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Details)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Amount)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Notes)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.CreatedAt)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ModifiedAt)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.ExpenseId)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ExpenseResponsibilityId)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ExpenseType)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Details)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Amount)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Notes)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.CreatedAt)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ModifiedAt)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.ExpenseDetailsId }) |
+            @Html.ActionLink("Details", "Details", new { id=item.ExpenseDetailsId }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.ExpenseDetailsId })
+        </td>
+    </tr>
+}
+
+</table>

@@ -1,0 +1,63 @@
+﻿@using DBConnectionTest.DataClasses
+@using DBConnectionTest.Models
+@model IEnumerable<DBConnectionTest.Models.ExpenseDetail>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.ExpenseResponsibilityId)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ExpenseTypeId)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Details)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Amount)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Notes)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.CreatedAt)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ModifiedAt)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @LoadData.GetExpenseResponsibility(item.ExpenseResponsibilityId)
+        </td>
+        <td>
+            @LoadData.GetExpenseType(item.ExpenseTypeId)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Details)
+        </td>
+        <td>
+            $@Html.DisplayFor(modelItem => item.Amount)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Notes)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.CreatedAt)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ModifiedAt)
+        </td>
+        <td>
+            @Html.ActionLink("Delete", "delete", new { id=item.ExpenseDetailsId })
+        </td>
+    </tr>
+}
+
+</table>

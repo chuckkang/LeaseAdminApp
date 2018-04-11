@@ -1,0 +1,12 @@
+﻿@using DBConnectionTest.Models
+
+@model DBConnectionTest.Models.VendorExpensesViewModel
+@{
+    ViewBag.Title = "View";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>View</h2>
+
+@Html.Partial("VendorInfoPartial", Model.Vendor)
+@Html.Partial("ExpensesListPartial", Model.ExpensesList)

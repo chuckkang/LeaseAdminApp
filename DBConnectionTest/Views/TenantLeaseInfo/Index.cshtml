@@ -1,0 +1,112 @@
+﻿@model IEnumerable<DBConnectionTest.Models.TenantLeaseInfo>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.TenantId)
+        </th>
+        @*<th>
+            @Html.DisplayNameFor(model => model.Tenants.TenantName)
+        </th>*@
+        <th>
+            @Html.DisplayNameFor(model => model.LeaseAmount)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.SquareFootage)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ProRataPercentage)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.PricePerSquareFoot)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Notes)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.NNN)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Deposit)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.LeaseStart)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.LeaseEnd)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.RentCommencement)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Admin_Fee)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ActiveLease)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.TenantId)
+        </td>
+        @*<td>
+            @Html.DisplayFor(modelItem => item.Tenants.TenantName)
+        </td>*@
+        <td>
+            @Html.DisplayFor(modelItem => item.LeaseAmount)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.SquareFootage)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ProRataPercentage)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.PricePerSquareFoot)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Notes)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.NNN)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Deposit)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.LeaseStart)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.LeaseEnd)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.RentCommencement)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Admin_Fee)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ActiveLease)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id = item.TenantLeaseId }) |
+            @Html.ActionLink("Details", "Details", new { id = item.TenantLeaseId }) |
+            @Html.ActionLink("Delete", "Delete", new { id = item.TenantLeaseId })
+        </td>
+    </tr>
+}
+
+</table>

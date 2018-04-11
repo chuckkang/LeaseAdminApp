@@ -1,0 +1,129 @@
+﻿@model DBConnectionTest.Models.TenantLeaseInfo
+
+@{
+    ViewBag.Title = "Delete";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Delete</h2>
+
+<h3>Are you sure you want to delete this?</h3>
+<div>
+    <h4>TenantLeaseInfo</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Tenant)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Tenant)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.LeaseAmount)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.LeaseAmount)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.SquareFootage)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.SquareFootage)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ProRataPercentage)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ProRataPercentage)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.PricePerSquareFoot)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.PricePerSquareFoot)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Notes)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Notes)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.NNN)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.NNN)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Deposit)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Deposit)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.LeaseStart)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.LeaseStart)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.LeaseEnd)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.LeaseEnd)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.RentCommencement)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.RentCommencement)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Admin_Fee)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Admin_Fee)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ActiveLease)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ActiveLease)
+        </dd>
+
+    </dl>
+
+    @using (Html.BeginForm()) {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input type="submit" value="Delete" class="btn btn-default" /> |
+            @Html.ActionLink("Back to List", "Index")
+        </div>
+    }
+</div>
