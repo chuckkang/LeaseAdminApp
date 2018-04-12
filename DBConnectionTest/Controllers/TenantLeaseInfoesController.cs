@@ -12,12 +12,12 @@ namespace DBConnectionTest.Controllers
 {
     public class TenantLeaseInfoesController : Controller
     {
-        private LeaseAdminEntities db = new LeaseAdminEntities();
+        private FresnoLeaseEntities db = new FresnoLeaseEntities();
 
         // GET: TenantLeaseInfoes
         public ActionResult Index()
         {
-            List<TenantLeaseInfo> info = db.TenantLeaseInfoes.Include("Tenant").ToList();
+            List<TenantLeaseInfo> info = db.TenantLeaseInfoes.ToList();
             return View(info);
         }
 

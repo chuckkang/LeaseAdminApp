@@ -12,7 +12,7 @@ namespace DBConnectionTest.Controllers
 {
     public class VendorsController : Controller
     {
-        private LeaseAdminEntities db = new LeaseAdminEntities();
+        private FresnoLeaseEntities db = new FresnoLeaseEntities();
 
         // GET: Vendors
         public ActionResult Index()

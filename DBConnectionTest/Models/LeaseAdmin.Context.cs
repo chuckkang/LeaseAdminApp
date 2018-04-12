@@ -13,9 +13,9 @@ namespace DBConnectionTest.Models
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
     
-    public partial class LeaseAdminEntities : DbContext
+    public partial class FresnoLeaseEntities : DbContext
     {
-        public LeaseAdminEntities()
+        public FresnoLeaseEntities()
             : base("name=FresnoLeaseEntities")
         {
         }

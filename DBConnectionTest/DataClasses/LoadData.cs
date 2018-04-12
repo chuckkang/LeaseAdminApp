@@ -8,7 +8,7 @@ namespace DBConnectionTest.DataClasses
     public class LoadData
     {
 
-        private static LeaseAdminEntities db = new LeaseAdminEntities();
+        private static FresnoLeaseEntities db = new FresnoLeaseEntities();
 
         private static List<Vendor> VendorList = new List<Vendor>();
         private static List<CalendarMonth> CalendarMonthList = new List<CalendarMonth>();

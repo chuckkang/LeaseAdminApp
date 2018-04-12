@@ -153,7 +153,7 @@
     <Compile Include="Controllers\DashboardController.cs" />
     <Compile Include="Controllers\ExpensesController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
-    <Compile Include="Controllers\TenantLeaseInfoController.cs" />
+    <Compile Include="Controllers\TenantLeaseInfoesController.cs" />
     <Compile Include="Controllers\TenantsController.cs" />
     <Compile Include="Controllers\VendorsController.cs" />
     <Compile Include="DataClasses\LoadData.cs" />
@@ -318,11 +318,11 @@
     <Content Include="Views\Tenants\Edit.cshtml" />
     <Content Include="Views\Tenants\Index.cshtml" />
     <Content Include="Views\Shared\NavigationPartial.cshtml" />
-    <Content Include="Views\TenantLeaseInfo\Create.cshtml" />
-    <Content Include="Views\TenantLeaseInfo\Delete.cshtml" />
-    <Content Include="Views\TenantLeaseInfo\Details.cshtml" />
-    <Content Include="Views\TenantLeaseInfo\Edit.cshtml" />
-    <Content Include="Views\TenantLeaseInfo\Index.cshtml" />
+    <Content Include="Views\TenantLeaseInfoes\Create.cshtml" />
+    <Content Include="Views\TenantLeaseInfoes\Delete.cshtml" />
+    <Content Include="Views\TenantLeaseInfoes\Details.cshtml" />
+    <Content Include="Views\TenantLeaseInfoes\Edit.cshtml" />
+    <Content Include="Views\TenantLeaseInfoes\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

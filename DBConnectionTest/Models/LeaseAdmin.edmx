@@ -391,7 +391,7 @@
           <EntitySet Name="Incomes" EntityType="Self.Income" />
           <EntitySet Name="IncomeTypes" EntityType="Self.IncomeType" />
           <EntitySet Name="TaskManagements" EntityType="Self.TaskManagement" />
-          <EntitySet Name="TenantLeaseInfoes" EntityType="Self.TenantLeaseInfo" />
+          <EntitySet Name="TenantLeaseInfoes" EntityType="FresnoLeaseModel.TenantLeaseInfo" />
           <EntitySet Name="Tenants" EntityType="Self.Tenant" />
           <EntitySet Name="Vendors" EntityType="Self.Vendor" />
           <EntitySet Name="TenderTypes" EntityType="FresnoLeaseModel.TenderType" />
