@@ -15,7 +15,7 @@ namespace DBConnectionTest.Models
     public partial class TenantLeaseInfo
     {
         public int TenantLeaseId { get; set; }
-        public Nullable<int> TenantId { get; set; }
+        public int TenantId { get; set; }
         public Nullable<decimal> LeaseAmount { get; set; }
         public Nullable<int> SquareFootage { get; set; }
         public Nullable<int> ProRataPercentage { get; set; }
@@ -26,7 +26,9 @@ namespace DBConnectionTest.Models
         public Nullable<System.DateTime> LeaseStart { get; set; }
         public Nullable<System.DateTime> LeaseEnd { get; set; }
         public Nullable<System.DateTime> RentCommencement { get; set; }
-        public string Admin_Fee { get; set; }
+        public string AdminFee { get; set; }
         public bool ActiveLease { get; set; }
+    
+        public virtual Tenant Tenant { get; set; }
     }
 }

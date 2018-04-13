@@ -14,8 +14,17 @@ namespace DBConnectionTest.Models
     
     public partial class ExpenseResponsibility
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public ExpenseResponsibility()
+        {
+            this.ExpenseDetails = new HashSet<ExpenseDetail>();
+        }
+    
         public int ExpenseResponsibilityID { get; set; }
         public string ExpenseResponsibilityType { get; set; }
         public string ResponsibilityMemo { get; set; }
+    
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<ExpenseDetail> ExpenseDetails { get; set; }
     }
 }

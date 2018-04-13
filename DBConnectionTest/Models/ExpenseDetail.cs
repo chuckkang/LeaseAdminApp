@@ -15,13 +15,17 @@ namespace DBConnectionTest.Models
     public partial class ExpenseDetail
     {
         public int ExpenseDetailsId { get; set; }
-        public Nullable<int> ExpenseId { get; set; }
-        public Nullable<int> ExpenseResponsibilityId { get; set; }
-        public Nullable<int> ExpenseTypeId { get; set; }
+        public int ExpenseId { get; set; }
+        public int ExpenseResponsibilityId { get; set; }
+        public int ExpenseTypeId { get; set; }
         public string Details { get; set; }
         public Nullable<decimal> Amount { get; set; }
         public string Notes { get; set; }
         public Nullable<System.DateTime> CreatedAt { get; set; }
         public Nullable<System.DateTime> ModifiedAt { get; set; }
+    
+        public virtual ExpenseResponsibility ExpenseResponsibility { get; set; }
+        public virtual Expense Expens { get; set; }
+        public virtual ExpensesType ExpensesType { get; set; }
     }
 }

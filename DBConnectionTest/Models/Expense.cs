@@ -14,17 +14,33 @@ namespace DBConnectionTest.Models
     
     public partial class Expense
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public Expense()
+        {
+            this.ExpenseDetails = new HashSet<ExpenseDetail>();
+        }
+    
         public int ExpenseID { get; set; }
-        public Nullable<int> ExpenseDateID { get; set; }
-        public Nullable<int> VendorID { get; set; }
+        public int ExpenseDateID { get; set; }
+        public int VendorID { get; set; }
         public Nullable<decimal> InvoiceAmount { get; set; }
         public Nullable<int> CheckNo { get; set; }
-        public Nullable<int> ServiceMonthId { get; set; }
-        public Nullable<int> ServiceYearId { get; set; }
+        public int ServiceMonthId { get; set; }
+        public int ServiceYearId { get; set; }
         public string TenantNote { get; set; }
         public string OwnerNote { get; set; }
         public string InvoiceNo { get; set; }
+        public int TenderTypeId { get; set; }
         public bool ExpenseCleared { get; set; }
-        public Nullable<int> TenderTypeId { get; set; }
+        public System.DateTime CreatedAt { get; set; }
+        public System.DateTime ModifiedAt { get; set; }
+    
+        public virtual BusinessDate BusinessDate { get; set; }
+        public virtual CalendarMonth CalendarMonth { get; set; }
+        public virtual CalendarYear CalendarYear { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<ExpenseDetail> ExpenseDetails { get; set; }
+        public virtual TenderType TenderType { get; set; }
+        public virtual Vendor Vendor { get; set; }
     }
 }

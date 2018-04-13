@@ -209,6 +209,9 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>LeaseAdmin.edmx</DependentUpon>
     </Compile>
+    <Compile Include="Models\sysdiagram.cs">
+      <DependentUpon>LeaseAdmin.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\TaskManagement.cs">
       <DependentUpon>LeaseAdmin.tt</DependentUpon>
     </Compile>

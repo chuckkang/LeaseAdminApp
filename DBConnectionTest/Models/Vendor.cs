@@ -14,6 +14,12 @@ namespace DBConnectionTest.Models
     
     public partial class Vendor
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public Vendor()
+        {
+            this.Expenses = new HashSet<Expense>();
+        }
+    
         public int VendorID { get; set; }
         public string VendorName { get; set; }
         public string Address { get; set; }
@@ -21,5 +27,10 @@ namespace DBConnectionTest.Models
         public string State { get; set; }
         public string ZipCode { get; set; }
         public string Description { get; set; }
+        public Nullable<System.DateTime> CreatedAt { get; set; }
+        public Nullable<System.DateTime> ModfiedAt { get; set; }
+    
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Expense> Expenses { get; set; }
     }
 }

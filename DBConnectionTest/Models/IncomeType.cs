@@ -14,7 +14,16 @@ namespace DBConnectionTest.Models
     
     public partial class IncomeType
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public IncomeType()
+        {
+            this.Incomes = new HashSet<Income>();
+        }
+    
         public int IncomeTypeID { get; set; }
-        public string IncomeType1 { get; set; }
+        public string Type { get; set; }
+    
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Income> Incomes { get; set; }
     }
 }

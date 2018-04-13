@@ -14,6 +14,12 @@ namespace DBConnectionTest.Models
     
     public partial class Tenant
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public Tenant()
+        {
+            this.TenantLeaseInfoes = new HashSet<TenantLeaseInfo>();
+        }
+    
         public int TenantId { get; set; }
         public string TenantName { get; set; }
         public string AddlAddress { get; set; }
@@ -30,5 +36,10 @@ namespace DBConnectionTest.Models
         public string BillingContactPhone { get; set; }
         public string BillingContactEmail { get; set; }
         public string AdditionalInfo { get; set; }
+        public System.DateTime CreatedAt { get; set; }
+        public System.DateTime ModifiedAt { get; set; }
+    
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<TenantLeaseInfo> TenantLeaseInfoes { get; set; }
     }
 }

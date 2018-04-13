@@ -14,7 +14,19 @@ namespace DBConnectionTest.Models
     
     public partial class BusinessDate
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public BusinessDate()
+        {
+            this.Expenses = new HashSet<Expense>();
+            this.Incomes = new HashSet<Income>();
+        }
+    
         public int DateID { get; set; }
         public System.DateTime BusinessDay { get; set; }
+    
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Expense> Expenses { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Income> Incomes { get; set; }
     }
 }

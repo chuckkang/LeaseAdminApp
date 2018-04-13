@@ -8,7 +8,7 @@ namespace DBConnectionTest.DataClasses
     public class LoadData
     {
 
-        private static FresnoLeaseEntities db = new FresnoLeaseEntities();
+        private static LeaseAdminEntities db = new LeaseAdminEntities();
 
         private static List<Vendor> VendorList = new List<Vendor>();
         private static List<CalendarMonth> CalendarMonthList = new List<CalendarMonth>();
@@ -20,7 +20,7 @@ namespace DBConnectionTest.DataClasses
         public static void PopulateLists()
         {
             // this is to be called from the app_start
-            VendorList = db.Vendors.OrderByDescending(v=>v.VendorName).ToList();
+            VendorList = db.Vendors.ToList();
             CalendarMonthList = db.CalendarMonths.ToList();
             CalendarYearList = db.CalendarYears.OrderByDescending(y=>y.CalYear).ToList();
             TenderTypeList = db.TenderTypes.OrderBy(t=>t.Tender).ToList();

@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-    <Schema Namespace="FresnoLeaseModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+      <Schema Namespace="LeaseAdminModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="BusinessDates">
           <Key>
             <PropertyRef Name="DateID" />
@@ -31,9 +31,9 @@
             <PropertyRef Name="ExpenseDetailsId" />
           </Key>
           <Property Name="ExpenseDetailsId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="ExpenseId" Type="int" />
-          <Property Name="ExpenseResponsibilityId" Type="int" />
-          <Property Name="ExpenseTypeId" Type="int" />
+          <Property Name="ExpenseId" Type="int" Nullable="false" />
+          <Property Name="ExpenseResponsibilityId" Type="int" Nullable="false" />
+          <Property Name="ExpenseTypeId" Type="int" Nullable="false" />
           <Property Name="Details" Type="nvarchar" MaxLength="255" />
           <Property Name="Amount" Type="money" />
           <Property Name="Notes" Type="nvarchar" MaxLength="255" />
@@ -53,17 +53,19 @@
             <PropertyRef Name="ExpenseID" />
           </Key>
           <Property Name="ExpenseID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="ExpenseDateID" Type="int" />
-          <Property Name="VendorID" Type="int" />
+          <Property Name="ExpenseDateID" Type="int" Nullable="false" />
+          <Property Name="VendorID" Type="int" Nullable="false" />
           <Property Name="InvoiceAmount" Type="money" />
           <Property Name="CheckNo" Type="int" />
-          <Property Name="ServiceMonthId" Type="int" />
-          <Property Name="ServiceYearId" Type="int" />
+          <Property Name="ServiceMonthId" Type="int" Nullable="false" />
+          <Property Name="ServiceYearId" Type="int" Nullable="false" />
           <Property Name="TenantNote" Type="nvarchar(max)" />
           <Property Name="OwnerNote" Type="nvarchar(max)" />
           <Property Name="InvoiceNo" Type="nvarchar" MaxLength="255" />
-          <Property Name="TenderTypeId" Type="int" />
+          <Property Name="TenderTypeId" Type="int" Nullable="false" />
           <Property Name="ExpenseCleared" Type="bit" Nullable="false" />
+          <Property Name="CreatedAt" Type="datetime" Nullable="false" />
+          <Property Name="ModifiedAt" Type="datetime" Nullable="false" />
         </EntityType>
         <EntityType Name="ExpensesType">
           <Key>
@@ -91,18 +93,17 @@
         </EntityType>
         <EntityType Name="Incomes">
           <Key>
-            <PropertyRef Name="IncomeID" />
+            <PropertyRef Name="IncomeId" />
           </Key>
-          <Property Name="IncomeID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="BusinessDate" Type="int" />
-          <Property Name="Vendor" Type="int" />
-          <Property Name="IncomeType" Type="int" />
-          <Property Name="Tenant" Type="int" />
+          <Property Name="IncomeId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="BusinessDateId" Type="int" Nullable="false" />
+          <Property Name="IncomeTypeId" Type="int" Nullable="false" />
+          <Property Name="Tenant" Type="int" Nullable="false" />
           <Property Name="LeasePayment" Type="money" />
           <Property Name="TotalPaymentAmount" Type="money" />
           <Property Name="NNNPayment" Type="money" />
           <Property Name="LeaseMonth" Type="nvarchar" MaxLength="255" />
-          <Property Name="LeaseYear" Type="int" />
+          <Property Name="LeaseYear" Type="nvarchar" MaxLength="50" />
           <Property Name="OtherPayment" Type="money" />
           <Property Name="CheckNo" Type="int" />
           <Property Name="IncomeNotes" Type="nvarchar(max)" />
@@ -112,7 +113,17 @@
             <PropertyRef Name="IncomeTypeID" />
           </Key>
           <Property Name="IncomeTypeID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="IncomeType" Type="nvarchar" MaxLength="255" />
+          <Property Name="Type" Type="nvarchar" MaxLength="255" />
+        </EntityType>
+        <EntityType Name="sysdiagrams">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="principal_id" Type="int" Nullable="false" />
+          <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="version" Type="int" />
+          <Property Name="definition" Type="varbinary(max)" />
         </EntityType>
         <EntityType Name="TaskManagements">
           <Key>
@@ -130,7 +141,7 @@
             <PropertyRef Name="TenantLeaseId" />
           </Key>
           <Property Name="TenantLeaseId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="TenantId" Type="int" />
+          <Property Name="TenantId" Type="int" Nullable="false" />
           <Property Name="LeaseAmount" Type="money" />
           <Property Name="SquareFootage" Type="int" />
           <Property Name="ProRataPercentage" Type="int" />
@@ -141,7 +152,7 @@
           <Property Name="LeaseStart" Type="datetime" />
           <Property Name="LeaseEnd" Type="datetime" />
           <Property Name="RentCommencement" Type="datetime" />
-          <Property Name="Admin Fee" Type="nvarchar(max)" />
+          <Property Name="AdminFee" Type="nvarchar(max)" />
           <Property Name="ActiveLease" Type="bit" Nullable="false" />
         </EntityType>
         <EntityType Name="Tenants">
@@ -149,12 +160,12 @@
             <PropertyRef Name="TenantId" />
           </Key>
           <Property Name="TenantId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="TenantName" Type="nvarchar" MaxLength="255" />
+          <Property Name="TenantName" Type="nvarchar" MaxLength="255" Nullable="false" />
           <Property Name="AddlAddress" Type="nvarchar" MaxLength="255" />
-          <Property Name="TenantAddress" Type="nvarchar" MaxLength="255" />
-          <Property Name="TenantCity" Type="nvarchar" MaxLength="255" />
-          <Property Name="TenantState" Type="nvarchar" MaxLength="255" />
-          <Property Name="TenantZip" Type="nvarchar" MaxLength="255" />
+          <Property Name="TenantAddress" Type="nvarchar" MaxLength="255" Nullable="false" />
+          <Property Name="TenantCity" Type="nvarchar" MaxLength="255" Nullable="false" />
+          <Property Name="TenantState" Type="nvarchar" MaxLength="255" Nullable="false" />
+          <Property Name="TenantZip" Type="nvarchar" MaxLength="255" Nullable="false" />
           <Property Name="BillingAddress" Type="nvarchar" MaxLength="255" />
           <Property Name="BillingAdditional" Type="nvarchar" MaxLength="255" />
           <Property Name="BillingCity" Type="nvarchar" MaxLength="255" />
@@ -164,6 +175,8 @@
           <Property Name="BillingContactPhone" Type="nvarchar" MaxLength="255" />
           <Property Name="BillingContactEmail" Type="nvarchar" MaxLength="255" />
           <Property Name="AdditionalInfo" Type="nvarchar(max)" />
+          <Property Name="CreatedAt" Type="datetime" Nullable="false" />
+          <Property Name="ModifiedAt" Type="datetime" Nullable="false" />
         </EntityType>
         <EntityType Name="TenderTypes">
           <Key>
@@ -183,8 +196,142 @@
           <Property Name="State" Type="nvarchar" MaxLength="255" />
           <Property Name="ZipCode" Type="nvarchar" MaxLength="255" />
           <Property Name="Description" Type="nvarchar" MaxLength="255" />
+          <Property Name="CreatedAt" Type="datetime" />
+          <Property Name="ModfiedAt" Type="datetime" />
         </EntityType>
-        <EntityContainer Name="FresnoLeaseModelStoreContainer">
+        <Association Name="FK_ExpenseDetails_ExpenseResponsibilities">
+          <End Role="ExpenseResponsibilities" Type="Self.ExpenseResponsibilities" Multiplicity="1" />
+          <End Role="ExpenseDetails" Type="Self.ExpenseDetails" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ExpenseResponsibilities">
+              <PropertyRef Name="ExpenseResponsibilityID" />
+            </Principal>
+            <Dependent Role="ExpenseDetails">
+              <PropertyRef Name="ExpenseResponsibilityId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ExpenseDetails_Expenses">
+          <End Role="Expenses" Type="Self.Expenses" Multiplicity="1" />
+          <End Role="ExpenseDetails" Type="Self.ExpenseDetails" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Expenses">
+              <PropertyRef Name="ExpenseID" />
+            </Principal>
+            <Dependent Role="ExpenseDetails">
+              <PropertyRef Name="ExpenseId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ExpenseDetails_ExpensesType">
+          <End Role="ExpensesType" Type="Self.ExpensesType" Multiplicity="1" />
+          <End Role="ExpenseDetails" Type="Self.ExpenseDetails" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ExpensesType">
+              <PropertyRef Name="ExpenseTypeID" />
+            </Principal>
+            <Dependent Role="ExpenseDetails">
+              <PropertyRef Name="ExpenseTypeId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Expenses_BusinessDates">
+          <End Role="BusinessDates" Type="Self.BusinessDates" Multiplicity="1" />
+          <End Role="Expenses" Type="Self.Expenses" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="BusinessDates">
+              <PropertyRef Name="DateID" />
+            </Principal>
+            <Dependent Role="Expenses">
+              <PropertyRef Name="ExpenseDateID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Expenses_CalendarMonths">
+          <End Role="CalendarMonths" Type="Self.CalendarMonths" Multiplicity="1" />
+          <End Role="Expenses" Type="Self.Expenses" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CalendarMonths">
+              <PropertyRef Name="CalendarMonthID" />
+            </Principal>
+            <Dependent Role="Expenses">
+              <PropertyRef Name="ServiceMonthId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Expenses_CalendarYears">
+          <End Role="CalendarYears" Type="Self.CalendarYears" Multiplicity="1" />
+          <End Role="Expenses" Type="Self.Expenses" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CalendarYears">
+              <PropertyRef Name="CalendarYearID" />
+            </Principal>
+            <Dependent Role="Expenses">
+              <PropertyRef Name="ServiceYearId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Expenses_TenderTypes">
+          <End Role="TenderTypes" Type="Self.TenderTypes" Multiplicity="1" />
+          <End Role="Expenses" Type="Self.Expenses" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TenderTypes">
+              <PropertyRef Name="TenderTypeID" />
+            </Principal>
+            <Dependent Role="Expenses">
+              <PropertyRef Name="TenderTypeId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Expenses_Vendors">
+          <End Role="Vendors" Type="Self.Vendors" Multiplicity="1" />
+          <End Role="Expenses" Type="Self.Expenses" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Vendors">
+              <PropertyRef Name="VendorID" />
+            </Principal>
+            <Dependent Role="Expenses">
+              <PropertyRef Name="VendorID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Incomes_BusinessDates">
+          <End Role="BusinessDates" Type="Self.BusinessDates" Multiplicity="1" />
+          <End Role="Incomes" Type="Self.Incomes" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="BusinessDates">
+              <PropertyRef Name="DateID" />
+            </Principal>
+            <Dependent Role="Incomes">
+              <PropertyRef Name="BusinessDateId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Incomes_IncomeTypes">
+          <End Role="IncomeTypes" Type="Self.IncomeTypes" Multiplicity="1" />
+          <End Role="Incomes" Type="Self.Incomes" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="IncomeTypes">
+              <PropertyRef Name="IncomeTypeID" />
+            </Principal>
+            <Dependent Role="Incomes">
+              <PropertyRef Name="IncomeTypeId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TenantLeaseInfo_Tenants">
+          <End Role="Tenants" Type="Self.Tenants" Multiplicity="1" />
+          <End Role="TenantLeaseInfo" Type="Self.TenantLeaseInfo" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Tenants">
+              <PropertyRef Name="TenantId" />
+            </Principal>
+            <Dependent Role="TenantLeaseInfo">
+              <PropertyRef Name="TenantId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="LeaseAdminModelStoreContainer">
           <EntitySet Name="BusinessDates" EntityType="Self.BusinessDates" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="CalendarMonths" EntityType="Self.CalendarMonths" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="CalendarYears" EntityType="Self.CalendarYears" Schema="dbo" store:Type="Tables" />
@@ -196,22 +343,70 @@
           <EntitySet Name="GeneralNotes" EntityType="Self.GeneralNotes" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Incomes" EntityType="Self.Incomes" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="IncomeTypes" EntityType="Self.IncomeTypes" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="TaskManagements" EntityType="Self.TaskManagements" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="TenantLeaseInfo" EntityType="Self.TenantLeaseInfo" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Tenants" EntityType="Self.Tenants" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="TenderTypes" EntityType="Self.TenderTypes" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Vendors" EntityType="Self.Vendors" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_ExpenseDetails_ExpenseResponsibilities" Association="Self.FK_ExpenseDetails_ExpenseResponsibilities">
+            <End Role="ExpenseResponsibilities" EntitySet="ExpenseResponsibilities" />
+            <End Role="ExpenseDetails" EntitySet="ExpenseDetails" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ExpenseDetails_Expenses" Association="Self.FK_ExpenseDetails_Expenses">
+            <End Role="Expenses" EntitySet="Expenses" />
+            <End Role="ExpenseDetails" EntitySet="ExpenseDetails" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ExpenseDetails_ExpensesType" Association="Self.FK_ExpenseDetails_ExpensesType">
+            <End Role="ExpensesType" EntitySet="ExpensesType" />
+            <End Role="ExpenseDetails" EntitySet="ExpenseDetails" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Expenses_BusinessDates" Association="Self.FK_Expenses_BusinessDates">
+            <End Role="BusinessDates" EntitySet="BusinessDates" />
+            <End Role="Expenses" EntitySet="Expenses" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Expenses_CalendarMonths" Association="Self.FK_Expenses_CalendarMonths">
+            <End Role="CalendarMonths" EntitySet="CalendarMonths" />
+            <End Role="Expenses" EntitySet="Expenses" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Expenses_CalendarYears" Association="Self.FK_Expenses_CalendarYears">
+            <End Role="CalendarYears" EntitySet="CalendarYears" />
+            <End Role="Expenses" EntitySet="Expenses" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Expenses_TenderTypes" Association="Self.FK_Expenses_TenderTypes">
+            <End Role="TenderTypes" EntitySet="TenderTypes" />
+            <End Role="Expenses" EntitySet="Expenses" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Expenses_Vendors" Association="Self.FK_Expenses_Vendors">
+            <End Role="Vendors" EntitySet="Vendors" />
+            <End Role="Expenses" EntitySet="Expenses" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Incomes_BusinessDates" Association="Self.FK_Incomes_BusinessDates">
+            <End Role="BusinessDates" EntitySet="BusinessDates" />
+            <End Role="Incomes" EntitySet="Incomes" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Incomes_IncomeTypes" Association="Self.FK_Incomes_IncomeTypes">
+            <End Role="IncomeTypes" EntitySet="IncomeTypes" />
+            <End Role="Incomes" EntitySet="Incomes" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TenantLeaseInfo_Tenants" Association="Self.FK_TenantLeaseInfo_Tenants">
+            <End Role="Tenants" EntitySet="Tenants" />
+            <End Role="TenantLeaseInfo" EntitySet="TenantLeaseInfo" />
+          </AssociationSet>
         </EntityContainer>
-      </Schema></edmx:StorageModels>
+      </Schema>
+    </edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
-      <Schema Namespace="FresnoLeaseModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+      <Schema Namespace="LeaseAdminModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
         <EntityType Name="BusinessDate">
           <Key>
             <PropertyRef Name="DateID" />
           </Key>
           <Property Name="DateID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="BusinessDay" Type="DateTime" Nullable="false" Precision="3" />
+          <NavigationProperty Name="Expenses" Relationship="Self.FK_Expenses_BusinessDates" FromRole="BusinessDates" ToRole="Expenses" />
+          <NavigationProperty Name="Incomes" Relationship="Self.FK_Incomes_BusinessDates" FromRole="BusinessDates" ToRole="Incomes" />
         </EntityType>
         <EntityType Name="CalendarMonth">
           <Key>
@@ -219,6 +414,7 @@
           </Key>
           <Property Name="CalendarMonthID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="CalMonth" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="Expenses" Relationship="Self.FK_Expenses_CalendarMonths" FromRole="CalendarMonths" ToRole="Expenses" />
         </EntityType>
         <EntityType Name="CalendarYear">
           <Key>
@@ -226,20 +422,24 @@
           </Key>
           <Property Name="CalendarYearID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="CalYear" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="Expenses" Relationship="Self.FK_Expenses_CalendarYears" FromRole="CalendarYears" ToRole="Expenses" />
         </EntityType>
         <EntityType Name="ExpenseDetail">
           <Key>
             <PropertyRef Name="ExpenseDetailsId" />
           </Key>
           <Property Name="ExpenseDetailsId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="ExpenseId" Type="Int32" />
-          <Property Name="ExpenseResponsibilityId" Type="Int32" />
-          <Property Name="ExpenseTypeId" Type="Int32" />
+          <Property Name="ExpenseId" Type="Int32" Nullable="false" />
+          <Property Name="ExpenseResponsibilityId" Type="Int32" Nullable="false" />
+          <Property Name="ExpenseTypeId" Type="Int32" Nullable="false" />
           <Property Name="Details" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
           <Property Name="Amount" Type="Decimal" Precision="19" Scale="4" />
           <Property Name="Notes" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
           <Property Name="CreatedAt" Type="DateTime" Precision="3" />
           <Property Name="ModifiedAt" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="ExpenseResponsibility" Relationship="Self.FK_ExpenseDetails_ExpenseResponsibilities" FromRole="ExpenseDetails" ToRole="ExpenseResponsibilities" />
+          <NavigationProperty Name="Expens" Relationship="Self.FK_ExpenseDetails_Expenses" FromRole="ExpenseDetails" ToRole="Expenses" />
+          <NavigationProperty Name="ExpensesType" Relationship="Self.FK_ExpenseDetails_ExpensesType" FromRole="ExpenseDetails" ToRole="ExpensesType" />
         </EntityType>
         <EntityType Name="ExpenseResponsibility">
           <Key>
@@ -248,23 +448,32 @@
           <Property Name="ExpenseResponsibilityID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="ExpenseResponsibilityType" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
           <Property Name="ResponsibilityMemo" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="ExpenseDetails" Relationship="Self.FK_ExpenseDetails_ExpenseResponsibilities" FromRole="ExpenseResponsibilities" ToRole="ExpenseDetails" />
         </EntityType>
         <EntityType Name="Expense">
           <Key>
             <PropertyRef Name="ExpenseID" />
           </Key>
           <Property Name="ExpenseID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="ExpenseDateID" Type="Int32" />
-          <Property Name="VendorID" Type="Int32" />
+          <Property Name="ExpenseDateID" Type="Int32" Nullable="false" />
+          <Property Name="VendorID" Type="Int32" Nullable="false" />
           <Property Name="InvoiceAmount" Type="Decimal" Precision="19" Scale="4" />
           <Property Name="CheckNo" Type="Int32" />
-          <Property Name="ServiceMonthId" Type="Int32" />
-          <Property Name="ServiceYearId" Type="Int32" />
+          <Property Name="ServiceMonthId" Type="Int32" Nullable="false" />
+          <Property Name="ServiceYearId" Type="Int32" Nullable="false" />
           <Property Name="TenantNote" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="OwnerNote" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="InvoiceNo" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="TenderTypeId" Type="Int32" Nullable="false" />
           <Property Name="ExpenseCleared" Type="Boolean" Nullable="false" />
-          <Property Name="TenderTypeId" Type="Int32" />
+          <Property Name="CreatedAt" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="ModifiedAt" Type="DateTime" Nullable="false" Precision="3" />
+          <NavigationProperty Name="BusinessDate" Relationship="Self.FK_Expenses_BusinessDates" FromRole="Expenses" ToRole="BusinessDates" />
+          <NavigationProperty Name="CalendarMonth" Relationship="Self.FK_Expenses_CalendarMonths" FromRole="Expenses" ToRole="CalendarMonths" />
+          <NavigationProperty Name="CalendarYear" Relationship="Self.FK_Expenses_CalendarYears" FromRole="Expenses" ToRole="CalendarYears" />
+          <NavigationProperty Name="ExpenseDetails" Relationship="Self.FK_ExpenseDetails_Expenses" FromRole="Expenses" ToRole="ExpenseDetails" />
+          <NavigationProperty Name="TenderType" Relationship="Self.FK_Expenses_TenderTypes" FromRole="Expenses" ToRole="TenderTypes" />
+          <NavigationProperty Name="Vendor" Relationship="Self.FK_Expenses_Vendors" FromRole="Expenses" ToRole="Vendors" />
         </EntityType>
         <EntityType Name="ExpensesType">
           <Key>
@@ -273,6 +482,7 @@
           <Property Name="ExpenseTypeID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="ExpenseType" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
           <Property Name="Frequency" Type="Int32" />
+          <NavigationProperty Name="ExpenseDetails" Relationship="Self.FK_ExpenseDetails_ExpensesType" FromRole="ExpensesType" ToRole="ExpenseDetails" />
         </EntityType>
         <EntityType Name="Frequency">
           <Key>
@@ -292,28 +502,40 @@
         </EntityType>
         <EntityType Name="Income">
           <Key>
-            <PropertyRef Name="IncomeID" />
+            <PropertyRef Name="IncomeId" />
           </Key>
-          <Property Name="IncomeID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="BusinessDate" Type="Int32" />
-          <Property Name="Vendor" Type="Int32" />
-          <Property Name="IncomeType" Type="Int32" />
-          <Property Name="Tenant" Type="Int32" />
+          <Property Name="IncomeId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="BusinessDateId" Type="Int32" Nullable="false" />
+          <Property Name="IncomeTypeId" Type="Int32" Nullable="false" />
+          <Property Name="Tenant" Type="Int32" Nullable="false" />
           <Property Name="LeasePayment" Type="Decimal" Precision="19" Scale="4" />
           <Property Name="TotalPaymentAmount" Type="Decimal" Precision="19" Scale="4" />
           <Property Name="NNNPayment" Type="Decimal" Precision="19" Scale="4" />
           <Property Name="LeaseMonth" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
-          <Property Name="LeaseYear" Type="Int32" />
+          <Property Name="LeaseYear" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="OtherPayment" Type="Decimal" Precision="19" Scale="4" />
           <Property Name="CheckNo" Type="Int32" />
           <Property Name="IncomeNotes" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="BusinessDate" Relationship="Self.FK_Incomes_BusinessDates" FromRole="Incomes" ToRole="BusinessDates" />
+          <NavigationProperty Name="IncomeType" Relationship="Self.FK_Incomes_IncomeTypes" FromRole="Incomes" ToRole="IncomeTypes" />
         </EntityType>
         <EntityType Name="IncomeType">
           <Key>
             <PropertyRef Name="IncomeTypeID" />
           </Key>
           <Property Name="IncomeTypeID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="IncomeType1" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="Type" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Incomes" Relationship="Self.FK_Incomes_IncomeTypes" FromRole="IncomeTypes" ToRole="Incomes" />
+        </EntityType>
+        <EntityType Name="sysdiagram">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="principal_id" Type="Int32" Nullable="false" />
+          <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="version" Type="Int32" />
+          <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
         </EntityType>
         <EntityType Name="TaskManagement">
           <Key>
@@ -331,7 +553,7 @@
             <PropertyRef Name="TenantLeaseId" />
           </Key>
           <Property Name="TenantLeaseId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="TenantId" Type="Int32" />
+          <Property Name="TenantId" Type="Int32" Nullable="false" />
           <Property Name="LeaseAmount" Type="Decimal" Precision="19" Scale="4" />
           <Property Name="SquareFootage" Type="Int32" />
           <Property Name="ProRataPercentage" Type="Int32" />
@@ -342,20 +564,21 @@
           <Property Name="LeaseStart" Type="DateTime" Precision="3" />
           <Property Name="LeaseEnd" Type="DateTime" Precision="3" />
           <Property Name="RentCommencement" Type="DateTime" Precision="3" />
-          <Property Name="Admin_Fee" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="AdminFee" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="ActiveLease" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="Tenant" Relationship="Self.FK_TenantLeaseInfo_Tenants" FromRole="TenantLeaseInfo" ToRole="Tenants" />
         </EntityType>
         <EntityType Name="Tenant">
           <Key>
             <PropertyRef Name="TenantId" />
           </Key>
           <Property Name="TenantId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="TenantName" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="TenantName" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="AddlAddress" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
-          <Property Name="TenantAddress" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
-          <Property Name="TenantCity" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
-          <Property Name="TenantState" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
-          <Property Name="TenantZip" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="TenantAddress" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="TenantCity" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="TenantState" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="TenantZip" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="BillingAddress" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
           <Property Name="BillingAdditional" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
           <Property Name="BillingCity" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
@@ -365,6 +588,17 @@
           <Property Name="BillingContactPhone" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
           <Property Name="BillingContactEmail" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
           <Property Name="AdditionalInfo" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="CreatedAt" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="ModifiedAt" Type="DateTime" Nullable="false" Precision="3" />
+          <NavigationProperty Name="TenantLeaseInfoes" Relationship="Self.FK_TenantLeaseInfo_Tenants" FromRole="Tenants" ToRole="TenantLeaseInfo" />
+        </EntityType>
+        <EntityType Name="TenderType">
+          <Key>
+            <PropertyRef Name="TenderTypeID" />
+          </Key>
+          <Property Name="TenderTypeID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Tender" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Expenses" Relationship="Self.FK_Expenses_TenderTypes" FromRole="TenderTypes" ToRole="Expenses" />
         </EntityType>
         <EntityType Name="Vendor">
           <Key>
@@ -377,40 +611,213 @@
           <Property Name="State" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
           <Property Name="ZipCode" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
           <Property Name="Description" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="CreatedAt" Type="DateTime" Precision="3" />
+          <Property Name="ModfiedAt" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="Expenses" Relationship="Self.FK_Expenses_Vendors" FromRole="Vendors" ToRole="Expenses" />
         </EntityType>
-        <EntityContainer Name="FresnoLeaseEntities" annotation:LazyLoadingEnabled="true">
+        <Association Name="FK_Expenses_BusinessDates">
+          <End Role="BusinessDates" Type="Self.BusinessDate" Multiplicity="1" />
+          <End Role="Expenses" Type="LeaseAdminModel.Expense" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="BusinessDates">
+              <PropertyRef Name="DateID" />
+            </Principal>
+            <Dependent Role="Expenses">
+              <PropertyRef Name="ExpenseDateID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Incomes_BusinessDates">
+          <End Role="BusinessDates" Type="Self.BusinessDate" Multiplicity="1" />
+          <End Role="Incomes" Type="Self.Income" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="BusinessDates">
+              <PropertyRef Name="DateID" />
+            </Principal>
+            <Dependent Role="Incomes">
+              <PropertyRef Name="BusinessDateId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Expenses_CalendarMonths">
+          <End Role="CalendarMonths" Type="Self.CalendarMonth" Multiplicity="1" />
+          <End Role="Expenses" Type="LeaseAdminModel.Expense" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CalendarMonths">
+              <PropertyRef Name="CalendarMonthID" />
+            </Principal>
+            <Dependent Role="Expenses">
+              <PropertyRef Name="ServiceMonthId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Expenses_CalendarYears">
+          <End Role="CalendarYears" Type="Self.CalendarYear" Multiplicity="1" />
+          <End Role="Expenses" Type="LeaseAdminModel.Expense" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CalendarYears">
+              <PropertyRef Name="CalendarYearID" />
+            </Principal>
+            <Dependent Role="Expenses">
+              <PropertyRef Name="ServiceYearId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ExpenseDetails_ExpenseResponsibilities">
+          <End Role="ExpenseResponsibilities" Type="Self.ExpenseResponsibility" Multiplicity="1" />
+          <End Role="ExpenseDetails" Type="Self.ExpenseDetail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ExpenseResponsibilities">
+              <PropertyRef Name="ExpenseResponsibilityID" />
+            </Principal>
+            <Dependent Role="ExpenseDetails">
+              <PropertyRef Name="ExpenseResponsibilityId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ExpenseDetails_Expenses">
+          <End Role="Expenses" Type="LeaseAdminModel.Expense" Multiplicity="1" />
+          <End Role="ExpenseDetails" Type="Self.ExpenseDetail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Expenses">
+              <PropertyRef Name="ExpenseID" />
+            </Principal>
+            <Dependent Role="ExpenseDetails">
+              <PropertyRef Name="ExpenseId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ExpenseDetails_ExpensesType">
+          <End Role="ExpensesType" Type="Self.ExpensesType" Multiplicity="1" />
+          <End Role="ExpenseDetails" Type="Self.ExpenseDetail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ExpensesType">
+              <PropertyRef Name="ExpenseTypeID" />
+            </Principal>
+            <Dependent Role="ExpenseDetails">
+              <PropertyRef Name="ExpenseTypeId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Expenses_TenderTypes">
+          <End Role="TenderTypes" Type="Self.TenderType" Multiplicity="1" />
+          <End Role="Expenses" Type="LeaseAdminModel.Expense" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TenderTypes">
+              <PropertyRef Name="TenderTypeID" />
+            </Principal>
+            <Dependent Role="Expenses">
+              <PropertyRef Name="TenderTypeId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Expenses_Vendors">
+          <End Role="Vendors" Type="Self.Vendor" Multiplicity="1" />
+          <End Role="Expenses" Type="LeaseAdminModel.Expense" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Vendors">
+              <PropertyRef Name="VendorID" />
+            </Principal>
+            <Dependent Role="Expenses">
+              <PropertyRef Name="VendorID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Incomes_IncomeTypes">
+          <End Role="IncomeTypes" Type="Self.IncomeType" Multiplicity="1" />
+          <End Role="Incomes" Type="Self.Income" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="IncomeTypes">
+              <PropertyRef Name="IncomeTypeID" />
+            </Principal>
+            <Dependent Role="Incomes">
+              <PropertyRef Name="IncomeTypeId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TenantLeaseInfo_Tenants">
+          <End Role="Tenants" Type="Self.Tenant" Multiplicity="1" />
+          <End Role="TenantLeaseInfo" Type="Self.TenantLeaseInfo" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Tenants">
+              <PropertyRef Name="TenantId" />
+            </Principal>
+            <Dependent Role="TenantLeaseInfo">
+              <PropertyRef Name="TenantId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="LeaseAdminEntities" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="BusinessDates" EntityType="Self.BusinessDate" />
           <EntitySet Name="CalendarMonths" EntityType="Self.CalendarMonth" />
           <EntitySet Name="CalendarYears" EntityType="Self.CalendarYear" />
           <EntitySet Name="ExpenseDetails" EntityType="Self.ExpenseDetail" />
           <EntitySet Name="ExpenseResponsibilities" EntityType="Self.ExpenseResponsibility" />
-          <EntitySet Name="Expenses" EntityType="FresnoLeaseModel.Expense" />
+          <EntitySet Name="Expenses" EntityType="LeaseAdminModel.Expense" />
           <EntitySet Name="ExpensesTypes" EntityType="Self.ExpensesType" />
           <EntitySet Name="Frequencies" EntityType="Self.Frequency" />
           <EntitySet Name="GeneralNotes" EntityType="Self.GeneralNote" />
           <EntitySet Name="Incomes" EntityType="Self.Income" />
           <EntitySet Name="IncomeTypes" EntityType="Self.IncomeType" />
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagram" />
           <EntitySet Name="TaskManagements" EntityType="Self.TaskManagement" />
-          <EntitySet Name="TenantLeaseInfoes" EntityType="FresnoLeaseModel.TenantLeaseInfo" />
+          <EntitySet Name="TenantLeaseInfoes" EntityType="Self.TenantLeaseInfo" />
           <EntitySet Name="Tenants" EntityType="Self.Tenant" />
+          <EntitySet Name="TenderTypes" EntityType="Self.TenderType" />
           <EntitySet Name="Vendors" EntityType="Self.Vendor" />
-          <EntitySet Name="TenderTypes" EntityType="FresnoLeaseModel.TenderType" />
+          <AssociationSet Name="FK_Expenses_BusinessDates" Association="Self.FK_Expenses_BusinessDates">
+            <End Role="BusinessDates" EntitySet="BusinessDates" />
+            <End Role="Expenses" EntitySet="Expenses" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Incomes_BusinessDates" Association="Self.FK_Incomes_BusinessDates">
+            <End Role="BusinessDates" EntitySet="BusinessDates" />
+            <End Role="Incomes" EntitySet="Incomes" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Expenses_CalendarMonths" Association="Self.FK_Expenses_CalendarMonths">
+            <End Role="CalendarMonths" EntitySet="CalendarMonths" />
+            <End Role="Expenses" EntitySet="Expenses" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Expenses_CalendarYears" Association="Self.FK_Expenses_CalendarYears">
+            <End Role="CalendarYears" EntitySet="CalendarYears" />
+            <End Role="Expenses" EntitySet="Expenses" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ExpenseDetails_ExpenseResponsibilities" Association="Self.FK_ExpenseDetails_ExpenseResponsibilities">
+            <End Role="ExpenseResponsibilities" EntitySet="ExpenseResponsibilities" />
+            <End Role="ExpenseDetails" EntitySet="ExpenseDetails" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ExpenseDetails_Expenses" Association="Self.FK_ExpenseDetails_Expenses">
+            <End Role="Expenses" EntitySet="Expenses" />
+            <End Role="ExpenseDetails" EntitySet="ExpenseDetails" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ExpenseDetails_ExpensesType" Association="Self.FK_ExpenseDetails_ExpensesType">
+            <End Role="ExpensesType" EntitySet="ExpensesTypes" />
+            <End Role="ExpenseDetails" EntitySet="ExpenseDetails" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Expenses_TenderTypes" Association="Self.FK_Expenses_TenderTypes">
+            <End Role="TenderTypes" EntitySet="TenderTypes" />
+            <End Role="Expenses" EntitySet="Expenses" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Expenses_Vendors" Association="Self.FK_Expenses_Vendors">
+            <End Role="Vendors" EntitySet="Vendors" />
+            <End Role="Expenses" EntitySet="Expenses" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Incomes_IncomeTypes" Association="Self.FK_Incomes_IncomeTypes">
+            <End Role="IncomeTypes" EntitySet="IncomeTypes" />
+            <End Role="Incomes" EntitySet="Incomes" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TenantLeaseInfo_Tenants" Association="Self.FK_TenantLeaseInfo_Tenants">
+            <End Role="Tenants" EntitySet="Tenants" />
+            <End Role="TenantLeaseInfo" EntitySet="TenantLeaseInfoes" />
+          </AssociationSet>
         </EntityContainer>
-        <EntityType Name="TenderType">
-          <Key>
-            <PropertyRef Name="TenderTypeID" />
-          </Key>
-          <Property Name="TenderTypeID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Tender" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
-        </EntityType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
-        <EntityContainerMapping StorageEntityContainer="FresnoLeaseModelStoreContainer" CdmEntityContainer="FresnoLeaseEntities">
+        <EntityContainerMapping StorageEntityContainer="LeaseAdminModelStoreContainer" CdmEntityContainer="LeaseAdminEntities">
           <EntitySetMapping Name="BusinessDates">
-            <EntityTypeMapping TypeName="FresnoLeaseModel.BusinessDate">
+            <EntityTypeMapping TypeName="LeaseAdminModel.BusinessDate">
               <MappingFragment StoreEntitySet="BusinessDates">
                 <ScalarProperty Name="DateID" ColumnName="DateID" />
                 <ScalarProperty Name="BusinessDay" ColumnName="BusinessDay" />
@@ -418,7 +825,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="CalendarMonths">
-            <EntityTypeMapping TypeName="FresnoLeaseModel.CalendarMonth">
+            <EntityTypeMapping TypeName="LeaseAdminModel.CalendarMonth">
               <MappingFragment StoreEntitySet="CalendarMonths">
                 <ScalarProperty Name="CalendarMonthID" ColumnName="CalendarMonthID" />
                 <ScalarProperty Name="CalMonth" ColumnName="CalMonth" />
@@ -426,7 +833,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="CalendarYears">
-            <EntityTypeMapping TypeName="FresnoLeaseModel.CalendarYear">
+            <EntityTypeMapping TypeName="LeaseAdminModel.CalendarYear">
               <MappingFragment StoreEntitySet="CalendarYears">
                 <ScalarProperty Name="CalendarYearID" ColumnName="CalendarYearID" />
                 <ScalarProperty Name="CalYear" ColumnName="CalYear" />
@@ -434,7 +841,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="ExpenseDetails">
-            <EntityTypeMapping TypeName="FresnoLeaseModel.ExpenseDetail">
+            <EntityTypeMapping TypeName="LeaseAdminModel.ExpenseDetail">
               <MappingFragment StoreEntitySet="ExpenseDetails">
                 <ScalarProperty Name="ExpenseDetailsId" ColumnName="ExpenseDetailsId" />
                 <ScalarProperty Name="ExpenseId" ColumnName="ExpenseId" />
@@ -449,7 +856,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="ExpenseResponsibilities">
-            <EntityTypeMapping TypeName="FresnoLeaseModel.ExpenseResponsibility">
+            <EntityTypeMapping TypeName="LeaseAdminModel.ExpenseResponsibility">
               <MappingFragment StoreEntitySet="ExpenseResponsibilities">
                 <ScalarProperty Name="ExpenseResponsibilityID" ColumnName="ExpenseResponsibilityID" />
                 <ScalarProperty Name="ExpenseResponsibilityType" ColumnName="ExpenseResponsibilityType" />
@@ -458,9 +865,8 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Expenses">
-            <EntityTypeMapping TypeName="FresnoLeaseModel.Expense">
+            <EntityTypeMapping TypeName="LeaseAdminModel.Expense">
               <MappingFragment StoreEntitySet="Expenses">
-                <ScalarProperty Name="TenderTypeId" ColumnName="TenderTypeId" />
                 <ScalarProperty Name="ExpenseID" ColumnName="ExpenseID" />
                 <ScalarProperty Name="ExpenseDateID" ColumnName="ExpenseDateID" />
                 <ScalarProperty Name="VendorID" ColumnName="VendorID" />
@@ -471,12 +877,15 @@
                 <ScalarProperty Name="TenantNote" ColumnName="TenantNote" />
                 <ScalarProperty Name="OwnerNote" ColumnName="OwnerNote" />
                 <ScalarProperty Name="InvoiceNo" ColumnName="InvoiceNo" />
+                <ScalarProperty Name="TenderTypeId" ColumnName="TenderTypeId" />
                 <ScalarProperty Name="ExpenseCleared" ColumnName="ExpenseCleared" />
+                <ScalarProperty Name="CreatedAt" ColumnName="CreatedAt" />
+                <ScalarProperty Name="ModifiedAt" ColumnName="ModifiedAt" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="ExpensesTypes">
-            <EntityTypeMapping TypeName="FresnoLeaseModel.ExpensesType">
+            <EntityTypeMapping TypeName="LeaseAdminModel.ExpensesType">
               <MappingFragment StoreEntitySet="ExpensesType">
                 <ScalarProperty Name="ExpenseTypeID" ColumnName="ExpenseTypeID" />
                 <ScalarProperty Name="ExpenseType" ColumnName="ExpenseType" />
@@ -485,7 +894,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Frequencies">
-            <EntityTypeMapping TypeName="FresnoLeaseModel.Frequency">
+            <EntityTypeMapping TypeName="LeaseAdminModel.Frequency">
               <MappingFragment StoreEntitySet="Frequency">
                 <ScalarProperty Name="FrequencyID" ColumnName="FrequencyID" />
                 <ScalarProperty Name="Frequency1" ColumnName="Frequency" />
@@ -494,7 +903,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="GeneralNotes">
-            <EntityTypeMapping TypeName="FresnoLeaseModel.GeneralNote">
+            <EntityTypeMapping TypeName="LeaseAdminModel.GeneralNote">
               <MappingFragment StoreEntitySet="GeneralNotes">
                 <ScalarProperty Name="ID" ColumnName="ID" />
                 <ScalarProperty Name="Memo" ColumnName="Memo" />
@@ -503,12 +912,11 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Incomes">
-            <EntityTypeMapping TypeName="FresnoLeaseModel.Income">
+            <EntityTypeMapping TypeName="LeaseAdminModel.Income">
               <MappingFragment StoreEntitySet="Incomes">
-                <ScalarProperty Name="IncomeID" ColumnName="IncomeID" />
-                <ScalarProperty Name="BusinessDate" ColumnName="BusinessDate" />
-                <ScalarProperty Name="Vendor" ColumnName="Vendor" />
-                <ScalarProperty Name="IncomeType" ColumnName="IncomeType" />
+                <ScalarProperty Name="IncomeId" ColumnName="IncomeId" />
+                <ScalarProperty Name="BusinessDateId" ColumnName="BusinessDateId" />
+                <ScalarProperty Name="IncomeTypeId" ColumnName="IncomeTypeId" />
                 <ScalarProperty Name="Tenant" ColumnName="Tenant" />
                 <ScalarProperty Name="LeasePayment" ColumnName="LeasePayment" />
                 <ScalarProperty Name="TotalPaymentAmount" ColumnName="TotalPaymentAmount" />
@@ -522,15 +930,26 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="IncomeTypes">
-            <EntityTypeMapping TypeName="FresnoLeaseModel.IncomeType">
+            <EntityTypeMapping TypeName="LeaseAdminModel.IncomeType">
               <MappingFragment StoreEntitySet="IncomeTypes">
                 <ScalarProperty Name="IncomeTypeID" ColumnName="IncomeTypeID" />
-                <ScalarProperty Name="IncomeType1" ColumnName="IncomeType" />
+                <ScalarProperty Name="Type" ColumnName="Type" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="sysdiagrams">
+            <EntityTypeMapping TypeName="LeaseAdminModel.sysdiagram">
+              <MappingFragment StoreEntitySet="sysdiagrams">
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="principal_id" ColumnName="principal_id" />
+                <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
+                <ScalarProperty Name="version" ColumnName="version" />
+                <ScalarProperty Name="definition" ColumnName="definition" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="TaskManagements">
-            <EntityTypeMapping TypeName="FresnoLeaseModel.TaskManagement">
+            <EntityTypeMapping TypeName="LeaseAdminModel.TaskManagement">
               <MappingFragment StoreEntitySet="TaskManagements">
                 <ScalarProperty Name="TaskID" ColumnName="TaskID" />
                 <ScalarProperty Name="TaskDescription" ColumnName="TaskDescription" />
@@ -542,7 +961,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="TenantLeaseInfoes">
-            <EntityTypeMapping TypeName="FresnoLeaseModel.TenantLeaseInfo">
+            <EntityTypeMapping TypeName="LeaseAdminModel.TenantLeaseInfo">
               <MappingFragment StoreEntitySet="TenantLeaseInfo">
                 <ScalarProperty Name="TenantLeaseId" ColumnName="TenantLeaseId" />
                 <ScalarProperty Name="TenantId" ColumnName="TenantId" />
@@ -556,13 +975,13 @@
                 <ScalarProperty Name="LeaseStart" ColumnName="LeaseStart" />
                 <ScalarProperty Name="LeaseEnd" ColumnName="LeaseEnd" />
                 <ScalarProperty Name="RentCommencement" ColumnName="RentCommencement" />
-                <ScalarProperty Name="Admin_Fee" ColumnName="Admin Fee" />
+                <ScalarProperty Name="AdminFee" ColumnName="AdminFee" />
                 <ScalarProperty Name="ActiveLease" ColumnName="ActiveLease" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Tenants">
-            <EntityTypeMapping TypeName="FresnoLeaseModel.Tenant">
+            <EntityTypeMapping TypeName="LeaseAdminModel.Tenant">
               <MappingFragment StoreEntitySet="Tenants">
                 <ScalarProperty Name="TenantId" ColumnName="TenantId" />
                 <ScalarProperty Name="TenantName" ColumnName="TenantName" />
@@ -580,11 +999,21 @@
                 <ScalarProperty Name="BillingContactPhone" ColumnName="BillingContactPhone" />
                 <ScalarProperty Name="BillingContactEmail" ColumnName="BillingContactEmail" />
                 <ScalarProperty Name="AdditionalInfo" ColumnName="AdditionalInfo" />
+                <ScalarProperty Name="CreatedAt" ColumnName="CreatedAt" />
+                <ScalarProperty Name="ModifiedAt" ColumnName="ModifiedAt" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TenderTypes">
+            <EntityTypeMapping TypeName="LeaseAdminModel.TenderType">
+              <MappingFragment StoreEntitySet="TenderTypes">
+                <ScalarProperty Name="TenderTypeID" ColumnName="TenderTypeID" />
+                <ScalarProperty Name="Tender" ColumnName="Tender" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Vendors">
-            <EntityTypeMapping TypeName="FresnoLeaseModel.Vendor">
+            <EntityTypeMapping TypeName="LeaseAdminModel.Vendor">
               <MappingFragment StoreEntitySet="Vendors">
                 <ScalarProperty Name="VendorID" ColumnName="VendorID" />
                 <ScalarProperty Name="VendorName" ColumnName="VendorName" />
@@ -593,14 +1022,8 @@
                 <ScalarProperty Name="State" ColumnName="State" />
                 <ScalarProperty Name="ZipCode" ColumnName="ZipCode" />
                 <ScalarProperty Name="Description" ColumnName="Description" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="TenderTypes">
-            <EntityTypeMapping TypeName="FresnoLeaseModel.TenderType">
-              <MappingFragment StoreEntitySet="TenderTypes">
-                <ScalarProperty Name="Tender" ColumnName="Tender" />
-                <ScalarProperty Name="TenderTypeID" ColumnName="TenderTypeID" />
+                <ScalarProperty Name="CreatedAt" ColumnName="CreatedAt" />
+                <ScalarProperty Name="ModfiedAt" ColumnName="ModfiedAt" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -618,7 +1041,7 @@
     <Options>
       <DesignerInfoPropertySet>
         <DesignerProperty Name="ValidateOnBuild" Value="true" />
-        <DesignerProperty Name="EnablePluralization" Value="False" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
         <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
         <DesignerProperty Name="UseLegacyProvider" Value="false" />
         <DesignerProperty Name="CodeGenerationStrategy" Value="None" />

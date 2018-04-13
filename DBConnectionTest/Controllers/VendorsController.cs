@@ -8,11 +8,12 @@ using System.Web;
 using System.Web.Mvc;
 using DBConnectionTest.Models;
 using DBConnectionTest.DataClasses;
+using System.Collections;
 namespace DBConnectionTest.Controllers
 {
     public class VendorsController : Controller
     {
-        private FresnoLeaseEntities db = new FresnoLeaseEntities();
+        private LeaseAdminEntities db = new LeaseAdminEntities();
 
         // GET: Vendors
         public ActionResult Index()
@@ -114,6 +115,7 @@ namespace DBConnectionTest.Controllers
             // get list of all expenses related to this vendor.
             VendorExpensesViewModel vendorExpenses = new VendorExpensesViewModel();
             vendorExpenses.Vendor = db.Vendors.Find(vendorid);
+
             if (vendorExpenses.Vendor == null)
             {
                 return HttpNotFound();

@@ -7,16 +7,19 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using DBConnectionTest.Models;
+using System.Diagnostics;
 
 namespace DBConnectionTest.Controllers
 {
     public class TenantsController : Controller
     {
-        private FresnoLeaseEntities db = new FresnoLeaseEntities();
+        private LeaseAdminEntities db = new LeaseAdminEntities();
 
         // GET: Tenants
         public ActionResult Index()
         {
+            List<Tenant> info = db.Tenants.Include(e => e.TenantLeaseInfoes).ToList();
+            this.PrintList(info);
             return View(db.Tenants.ToList());
         }
 
@@ -122,6 +125,20 @@ namespace DBConnectionTest.Controllers
                 db.Dispose();
             }
             base.Dispose(disposing);
+        }
+
+        public void PrintList(List<Tenant> lst)
+        {
+            Debug.WriteLine("___________________________________________________________________");
+            foreach (var t in lst)
+            {
+                foreach (var amt in t.TenantLeaseInfoes)
+                {
+                    Debug.WriteLine(amt.LeaseAmount + "-------------Lease start");
+                }
+                Debug.WriteLine(">>>>>>>>>>>>>>>>>>>>>>>>>>");
+            }
+            Debug.WriteLine("___________________________________________________________________");
         }
     }
 }
