@@ -12,14 +12,14 @@ namespace DBConnectionTest.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class Users
+    public partial class User
     {
         public int UserId { get; set; }
         public string FirstName { get; set; }
         public string LastName { get; set; }
         public string UserName { get; set; }
         public string UserPass { get; set; }
-        public System.DateTime CreatedAt { get; set; }
-        public System.DateTime ModifiedAt { get; set; }
+        public Nullable<System.DateTime> CreatedAt { get; set; }
+        public Nullable<System.DateTime> ModifiedAt { get; set; }
     }
 }

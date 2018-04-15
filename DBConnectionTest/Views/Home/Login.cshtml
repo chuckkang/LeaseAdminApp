@@ -2,14 +2,20 @@
 @{
     ViewBag.Title = "Login";
     Layout = "~/Views/Shared/_Layout.cshtml";
+    
 }
 
 <h2>Login</h2>
 
 <div class="container">
     <div class="row">
+         
         <div class="panel table-bordered">
-            <div class="panel-heading"> Login</div>
+            <div class="panel-heading">
+                Login
+                @if (ViewBag.ExtraMessage != null)
+                { <div class="text-danger text-center">@ViewBag.ExtraMessage</div> }
+            </div>
             <div class="panel-body">
                 @using (Html.BeginForm("", "Dashboard", FormMethod.Post))
     {

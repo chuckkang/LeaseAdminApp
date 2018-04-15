@@ -194,8 +194,8 @@
           <Property Name="LastName" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="UserName" Type="nvarchar" MaxLength="30" Nullable="false" />
           <Property Name="UserPass" Type="nvarchar" MaxLength="300" Nullable="false" />
-          <Property Name="CreatedAt" Type="datetime" Nullable="false" />
-          <Property Name="ModifiedAt" Type="datetime" Nullable="false" />
+          <Property Name="CreatedAt" Type="datetime" />
+          <Property Name="ModifiedAt" Type="datetime" />
         </EntityType>
         <EntityType Name="Vendors">
           <Key>
@@ -821,9 +821,9 @@
             <End Role="Tenants" EntitySet="Tenants" />
             <End Role="TenantLeaseInfo" EntitySet="TenantLeaseInfoes" />
           </AssociationSet>
-          <EntitySet Name="Users" EntityType="LeaseAdminModel.Users" />
+          <EntitySet Name="Users1" EntityType="LeaseAdminModel.User" />
         </EntityContainer>
-        <EntityType Name="Users">
+        <EntityType Name="User">
           <Key>
             <PropertyRef Name="UserId" />
           </Key>
@@ -832,8 +832,8 @@
           <Property Name="LastName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="UserName" Type="String" Nullable="false" MaxLength="30" FixedLength="false" Unicode="true" />
           <Property Name="UserPass" Type="String" Nullable="false" MaxLength="300" FixedLength="false" Unicode="true" />
-          <Property Name="CreatedAt" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="ModifiedAt" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="CreatedAt" Type="DateTime" Precision="3" />
+          <Property Name="ModifiedAt" Type="DateTime" Precision="3" />
         </EntityType>
       </Schema>
     </edmx:ConceptualModels>
@@ -1052,8 +1052,8 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="Users">
-            <EntityTypeMapping TypeName="LeaseAdminModel.Users">
+          <EntitySetMapping Name="Users1">
+            <EntityTypeMapping TypeName="LeaseAdminModel.User">
               <MappingFragment StoreEntitySet="Users">
                 <ScalarProperty Name="ModifiedAt" ColumnName="ModifiedAt" />
                 <ScalarProperty Name="CreatedAt" ColumnName="CreatedAt" />

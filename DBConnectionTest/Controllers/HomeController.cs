@@ -31,7 +31,7 @@ namespace DBConnectionTest.Controllers
         [HttpGet]
         public ActionResult Login()
         {
-            ViewBag.Message = "Login";
+            ViewBag.ExtraMessage = TempData["ExtraMessage"];
 
             return View();
         }

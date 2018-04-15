@@ -31,11 +31,16 @@ namespace DBConnectionTest.Controllers
             }
             if (ModelState.IsValid)
             {
-                User newaccount = new User();
-                newaccount.FirstName = newuser.FirstName;
-                newaccount.LastName = newuser.LastName;
-                newaccount.UserName = newuser.UserName;
-                newaccount.UserPass = newuser.UserPass;
+                User newaccount = new User()
+                {
+                    FirstName = newuser.FirstName,
+                    LastName = newuser.LastName,
+                    UserName = newuser.UserName,
+                    UserPass = newuser.UserPass,
+                    CreatedAt = DateTime.Now,
+                    ModifiedAt = DateTime.Now
+                };
+                
                 Print.Line(newaccount);
 
                 //newuser.CreatedAt = DateTime.Now;
@@ -44,6 +49,8 @@ namespace DBConnectionTest.Controllers
                 //Print.Line(newuser.CreatedAt);
                 db.Users.Add(newaccount);
                 db.SaveChanges();
+                TempData["ExtraMessage"] = "Your account has been created.";
+                return RedirectToAction("login", "home");
             }
             return View(newuser);
         }

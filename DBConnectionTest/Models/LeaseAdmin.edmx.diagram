@@ -33,7 +33,7 @@
         <AssociationConnector Association="LeaseAdminModel.FK_Expenses_Vendors" ManuallyRouted="false" />
         <AssociationConnector Association="LeaseAdminModel.FK_Incomes_IncomeTypes" ManuallyRouted="false" />
         <AssociationConnector Association="LeaseAdminModel.FK_TenantLeaseInfo_Tenants" ManuallyRouted="false" />
-        <EntityTypeShape EntityType="LeaseAdminModel.Users" Width="1.5" PointX="5.375" PointY="12.75" />
+        <EntityTypeShape EntityType="LeaseAdminModel.User" Width="1.5" PointX="5.375" PointY="12.75" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>
