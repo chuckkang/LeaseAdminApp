@@ -153,6 +153,7 @@
     <Compile Include="Controllers\DashboardController.cs" />
     <Compile Include="Controllers\ExpensesController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\RegisterController.cs" />
     <Compile Include="Controllers\TenantLeaseInfoesController.cs" />
     <Compile Include="Controllers\TenantsController.cs" />
     <Compile Include="Controllers\VendorsController.cs" />
@@ -209,6 +210,10 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>LeaseAdmin.edmx</DependentUpon>
     </Compile>
+    <Compile Include="Models\Metadata.cs" />
+    <Compile Include="Models\PartialClasses.cs" />
+    <Compile Include="Models\Print.cs" />
+    <Compile Include="Models\RegisterViewModel.cs" />
     <Compile Include="Models\sysdiagram.cs">
       <DependentUpon>LeaseAdmin.tt</DependentUpon>
     </Compile>
@@ -222,6 +227,9 @@
       <DependentUpon>LeaseAdmin.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\TenderType.cs">
+      <DependentUpon>LeaseAdmin.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Users.cs">
       <DependentUpon>LeaseAdmin.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Vendor.cs">
@@ -326,6 +334,8 @@
     <Content Include="Views\TenantLeaseInfoes\Details.cshtml" />
     <Content Include="Views\TenantLeaseInfoes\Edit.cshtml" />
     <Content Include="Views\TenantLeaseInfoes\Index.cshtml" />
+    <Content Include="Views\Register\Index.cshtml" />
+    <Content Include="Views\Shared\UserCreatePartial.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

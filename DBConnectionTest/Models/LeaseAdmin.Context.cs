@@ -42,5 +42,6 @@ namespace DBConnectionTest.Models
         public virtual DbSet<Tenant> Tenants { get; set; }
         public virtual DbSet<TenderType> TenderTypes { get; set; }
         public virtual DbSet<Vendor> Vendors { get; set; }
+        public virtual DbSet<Users> Users { get; set; }
     }
 }

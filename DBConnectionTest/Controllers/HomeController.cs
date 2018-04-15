@@ -28,10 +28,20 @@ namespace DBConnectionTest.Controllers
             return View();
         }
 
+        [HttpGet]
         public ActionResult Login()
         {
             ViewBag.Message = "Login";
+
             return View();
         }
+
+        //[HttpPost]
+        //public ActionResult Login()
+        //{
+        //    ViewBag.Message = "Login";
+
+        //    return View();
+        //}
     }
 }
