@@ -4,6 +4,8 @@ using System.Data;
 using System.Data.Entity;
 using System.Linq;
 using System.Net;
+using System.Security.Cryptography;
+using System.Text;
 using System.Web;
 using System.Web.Mvc;
 using DBConnectionTest.Models;
@@ -23,6 +25,7 @@ namespace DBConnectionTest.Controllers
         }
 
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public ActionResult Index(RegisterViewModel newuser)
         {
             if (newuser == null)
@@ -35,22 +38,29 @@ namespace DBConnectionTest.Controllers
                 {
                     FirstName = newuser.FirstName,
                     LastName = newuser.LastName,
+                    Email = newuser.Email,
                     UserName = newuser.UserName,
                     UserPass = newuser.UserPass,
                     CreatedAt = DateTime.Now,
                     ModifiedAt = DateTime.Now
                 };
-                
-                Print.Line(newaccount);
 
-                //newuser.CreatedAt = DateTime.Now;
-                //newuser.ModifiedAt = DateTime.Now;
-                // lets see if teh database will automatically insert the default values.
-                //Print.Line(newuser.CreatedAt);
-                db.Users.Add(newaccount);
-                db.SaveChanges();
-                TempData["ExtraMessage"] = "Your account has been created.";
-                return RedirectToAction("login", "home");
+
+                List<User> checkEmail = db.Users.Where(e => e.Email == newaccount.Email).ToList();
+                if (checkEmail.Count < 1)
+                {
+                    // no duplicate email
+                    string pass = BusinessLogic.Authenticate.SHA1(newaccount.UserPass);
+                    newaccount.UserPass = pass;
+                    db.Users.Add(newaccount);
+                    db.SaveChanges();
+                    TempData["ExtraMessage"] = "Your account has been created.";
+                    return RedirectToAction("login", "home");
+                }
+                else
+                {
+                    TempData["DuplicateEmail"] = "Duplicate email exists.  Please choose another.";
+                }
             }
             return View(newuser);
         }
@@ -83,12 +93,6 @@ namespace DBConnectionTest.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "UserId,FirstName,LastName,UserName,UserPass,CreatedAt,ModifiedAt")] User user)
         {
-            if (ModelState.IsValid)
-            {
-                db.Users.Add(user);
-                db.SaveChanges();
-                return RedirectToAction("Index");
-            }
 
             return View(user);
         }

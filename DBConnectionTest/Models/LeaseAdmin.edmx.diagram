@@ -4,7 +4,7 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="41478871ad874f2aa4cd0339438081c2" Name="Diagram1">
+      <Diagram DiagramId="e6a695e12ab040c189f46b60114e390a" Name="Diagram1">
         <EntityTypeShape EntityType="LeaseAdminModel.BusinessDate" Width="1.5" PointX="0.75" PointY="5" IsExpanded="true" />
         <EntityTypeShape EntityType="LeaseAdminModel.CalendarMonth" Width="1.5" PointX="0.75" PointY="1" IsExpanded="true" />
         <EntityTypeShape EntityType="LeaseAdminModel.CalendarYear" Width="1.5" PointX="0.75" PointY="9.25" IsExpanded="true" />
@@ -21,6 +21,7 @@
         <EntityTypeShape EntityType="LeaseAdminModel.TenantLeaseInfo" Width="1.5" PointX="11" PointY="9.5" IsExpanded="true" />
         <EntityTypeShape EntityType="LeaseAdminModel.Tenant" Width="1.5" PointX="8.75" PointY="9" IsExpanded="true" />
         <EntityTypeShape EntityType="LeaseAdminModel.TenderType" Width="1.5" PointX="0.75" PointY="11.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="LeaseAdminModel.User" Width="1.5" PointX="12.75" PointY="0.75" IsExpanded="true" />
         <EntityTypeShape EntityType="LeaseAdminModel.Vendor" Width="1.5" PointX="0.75" PointY="14" IsExpanded="true" />
         <AssociationConnector Association="LeaseAdminModel.FK_Expenses_BusinessDates" ManuallyRouted="false" />
         <AssociationConnector Association="LeaseAdminModel.FK_Incomes_BusinessDates" ManuallyRouted="false" />
@@ -33,7 +34,6 @@
         <AssociationConnector Association="LeaseAdminModel.FK_Expenses_Vendors" ManuallyRouted="false" />
         <AssociationConnector Association="LeaseAdminModel.FK_Incomes_IncomeTypes" ManuallyRouted="false" />
         <AssociationConnector Association="LeaseAdminModel.FK_TenantLeaseInfo_Tenants" ManuallyRouted="false" />
-        <EntityTypeShape EntityType="LeaseAdminModel.User" Width="1.5" PointX="5.375" PointY="12.75" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

@@ -27,6 +27,12 @@ namespace DBConnectionTest.Models
         [Display(Name = "Username")]
         public string UserName { get; set; }
 
+        [Required(ErrorMessage = "Please enter an email.")]
+        [MaxLength(50), MinLength(5, ErrorMessage = "Email must be more than 5 characters.")]
+        [Display(Name = "Email")]
+        [EmailAddress]
+        public string Email { get; set; }
+
         [Required(ErrorMessage = "Please enter a password.")]
         [MaxLength(25), MinLength(5, ErrorMessage = "Password must be more than 5 characters.")]
         [Display(Name = "Password")]

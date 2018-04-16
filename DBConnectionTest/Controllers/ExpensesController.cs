@@ -17,9 +17,15 @@ namespace DBConnectionTest.Controllers
         // GET: Expenses
         public ActionResult Index()
         {
+            
             return View(db.Expenses.OrderByDescending(e=>e.ExpenseDateID).ToList());
         }
 
+        public bool CheckSession()
+        {
+            bool isValid = (Session["username"] != null ? false : true);
+            return ValidateRequest;
+        }
         // GET: Expenses/Details/5
         public ActionResult Details(int? id)
         {

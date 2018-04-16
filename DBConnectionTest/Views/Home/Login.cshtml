@@ -1,32 +1,44 @@
-﻿
+﻿@using DBConnectionTest.Models
+@model DBConnectionTest.ViewModels.LoginViewModel
 @{
     ViewBag.Title = "Login";
     Layout = "~/Views/Shared/_Layout.cshtml";
-    
 }
 
 <h2>Login</h2>
 
 <div class="container">
     <div class="row">
-         
         <div class="panel table-bordered">
             <div class="panel-heading">
                 Login
-                @if (ViewBag.ExtraMessage != null)
-                { <div class="text-danger text-center">@ViewBag.ExtraMessage</div> }
+                @if (ViewBag.Message != null)
+                {<div class="text-danger text-left">@ViewBag.Message</div>}
             </div>
             <div class="panel-body">
-                @using (Html.BeginForm("", "Dashboard", FormMethod.Post))
-    {
-            <div>User Id: <input type="text" class="form-control" /><br /></div>
-            <div>Password: <input type="password"  class="form-control"/><br /></div>
-            <div><button type="submit" class="btn-primary">Submit</button></div>
-}
+                @using (Html.BeginForm("login", "", FormMethod.Post))
+                {
+                    @Html.AntiForgeryToken()
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.Username, htmlAttributes: new { @class = "control-label col-md-2" })
+                        <div class="col-md-10">
+                            @Html.EditorFor(model => model.Username, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.Username, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.Password, htmlAttributes: new { @class = "control-label col-md-2" })
+                        <div class="col-md-10">
+                            @Html.EditorFor(model => model.Password, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.Password, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                    <div><button type="submit" class="btn btn-primary">Submit</button></div>
+                }
             </div>
         </div>
-     </div>
-    <div>
-        @Html.ActionLink("Register", "", "register", null, new { @class = "btn btn-primary"})
+        <div>
+            @Html.ActionLink("Register", "", "register", null, new { @class = "btn btn-primary" })
+        </div>
     </div>
 </div>
