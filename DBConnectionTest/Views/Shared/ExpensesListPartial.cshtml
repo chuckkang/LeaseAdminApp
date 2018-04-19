@@ -1,102 +1,88 @@
 ﻿@using DBConnectionTest.DataClasses;
-@using DBConnectionTest.Models
-@model IEnumerable<DBConnectionTest.Models.Expense>
-@{ 
+@using DBConnectionTest.Models;
+@using DBConnectionTest.ViewModels;
+@using DBConnectionTest.ViewModels.Expenses;
+@model IEnumerable<DBConnectionTest.ViewModels.Expenses.ExpenseModel>
+@{
     bool show = false;
     if (ViewContext.Controller.ValueProvider.GetValue("controller").RawValue.ToString().ToLower() != "vendors")
     { show = true; }
 }
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
-<table class="table">
+
+<table class="table expensetable">
     <tr>
         <th>
             @Html.DisplayNameFor(model => model.ExpenseDateID)
         </th>
-        @if (show==true)
+        @if (show == true)
         {
-        <th>
-            @Html.DisplayNameFor(model => model.VendorID)
-        </th>
+            <th class="vendor">
+                @Html.DisplayNameFor(model => model.VendorID)
+            </th>
         }
         <th>
             @Html.DisplayNameFor(model => model.InvoiceAmount)
         </th>
-        <th>
-            @Html.DisplayNameFor(model => model.CheckNo)
-        </th>
+
         <th>
             @Html.DisplayNameFor(model => model.ServiceMonthId)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.ServiceYearId)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.TenantNote)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.OwnerNote)
         </th>
         <th>
             @Html.DisplayNameFor(model => model.InvoiceNo)
         </th>
         <th>
+            @Html.DisplayNameFor(model => model.CheckNo)
+        </th>
+        <th>
             @Html.DisplayNameFor(model => model.TenderTypeId)
         </th>
+
         <th>
             @Html.DisplayNameFor(model => model.ExpenseCleared)
         </th>
         <th></th>
     </tr>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @*@Html.DisplayFor(modelItem => item.ExpenseDateID)*@
-            @LoadData.GetBusinessDate(item.ExpenseDateID)
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @*@Html.DisplayFor(modelItem => item.ExpenseDateID)*@
+                @LoadData.GetBusinessDate(item.ExpenseDateID)
 
-        </td>
-        @if (show == true)
-        {
+            </td>
+            @if (show == true)
+            {
 
-        <td>
-            @LoadData.GetVendorName(item.VendorID)
-        </td>
-        }
-        
-        <td>
-           $@Html.DisplayFor(modelItem => item.InvoiceAmount)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.CheckNo)
-        </td>
-        <td>
-            @LoadData.GetCalendarMonth(item.ServiceMonthId)
-        </td>
-        <td>
-            @LoadData.GetCalendarYear(item.ServiceYearId)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.TenantNote)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.OwnerNote)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.InvoiceNo)
-        </td>
-        <td>
-            @LoadData.GetTenderType(item.TenderTypeId)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.ExpenseCleared)
-        </td>
-        <td>
-            @Html.ActionLink("Details", "edit", "expenses", new { id=item.ExpenseID }, null) |
-            @Html.ActionLink("Delete", "delete", new { id=item.ExpenseID })
-        </td>
-    </tr>
-}
+                <td class="col-lg">
+                    @LoadData.GetVendorName(item.VendorID)
+                </td>
+            }
+
+            <td class="col-sm">
+                @Html.DisplayFor(modelItem => item.InvoiceAmount)
+            </td>
+
+            <td class="col-med">
+                @LoadData.GetCalendarMonth(item.ServiceMonthId)  @LoadData.GetCalendarYear(item.ServiceYearId)
+            </td>
+            <td class="col-sm">
+                @Html.DisplayFor(modelItem => item.InvoiceNo)
+            </td>
+            <td class="col-xs">
+                @Html.DisplayFor(modelItem => item.CheckNo)
+            </td>
+            <td class="col-sm">
+                @LoadData.GetTenderType(item.TenderTypeId)
+            </td>
+            <td class="col-xs">
+                @Html.DisplayFor(modelItem => item.ExpenseCleared)
+            </td>
+            <td class="col-lg">
+                @Html.ActionLink("Details", "edit", "expenses", new { id = item.ExpenseID }, null) |
+                @Html.ActionLink("Delete", "delete", new { id = item.ExpenseID })
+            </td>
+        </tr>
+    }
 
 </table>

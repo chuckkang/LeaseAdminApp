@@ -1,12 +1,17 @@
-﻿@model DBConnectionTest.Models.Vendor
+﻿@model DBConnectionTest.ViewModels.VendorViewModel
 
 @{
     ViewBag.Title = "Edit";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Edit</h2>
 
+<div class="container">
+    <div class="row">
+        <div class="col-md-6"><h2>@Html.DisplayFor(e => e.VendorName)</h2></div>
+        <div class="col-md-6"><span class="pull-right vcenter"> @Html.ActionLink("Vendor List", "Index", "vendor", null, new { @class = "btn btn-primary ali" })</span></div>
+    </div>
+</div>
 @using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
@@ -50,10 +55,10 @@
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(model => model.Zip, htmlAttributes: new { @class = "control-label col-md-2" })
+            @Html.LabelFor(model => model.ZipCode, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.Zip, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.Zip, "", new { @class = "text-danger" })
+                @Html.EditorFor(model => model.ZipCode, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.ZipCode, "", new { @class = "text-danger" })
             </div>
         </div>
 
@@ -73,6 +78,4 @@
     </div>
 }
 
-<div>
-    @Html.ActionLink("Back to List", "Index")
-</div>
+

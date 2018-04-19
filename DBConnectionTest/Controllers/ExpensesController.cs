@@ -7,7 +7,8 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using DBConnectionTest.Models;
-
+using DBConnectionTest.ViewModels.Expenses;
+using DBConnectionTest.ViewModels;
 namespace DBConnectionTest.Controllers
 {
     public class ExpensesController : Controller
@@ -17,8 +18,9 @@ namespace DBConnectionTest.Controllers
         // GET: Expenses
         public ActionResult Index()
         {
-            
-            return View(db.Expenses.OrderByDescending(e=>e.ExpenseDateID).ToList());
+            ExpenseModel vm = new ExpenseModel();
+            List<ExpenseModel> model = vm.ModelToView(db.Expenses.OrderByDescending(e => e.ExpenseDateID).ToList());
+            return View(model);
         }
 
         public bool CheckSession()
@@ -33,9 +35,9 @@ namespace DBConnectionTest.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            ExpenseDetailsViewModel expView = new ExpenseDetailsViewModel();
-            expView.Expense = db.Expenses.SingleOrDefault(e => e.ExpenseID == id);
-            expView.ExpenseDetailsList = db.ExpenseDetails.Where(e => e.ExpenseId == id).ToList();
+            ExpenseAndDetailsViewModel expView = new ExpenseAndDetailsViewModel();
+            expView.Expense = expView.Expense.ModelToView(db.Expenses.SingleOrDefault(e => e.ExpenseID == id));
+            expView.ExpenseDetailsList = expView.ReturnModelList(db.ExpenseDetails.Where(e => e.ExpenseId == id).ToList());// i doint have access to the interface.
 
             if (expView.Expense == null)
             {
@@ -74,9 +76,9 @@ namespace DBConnectionTest.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            ExpenseDetailsViewModel expView = new ExpenseDetailsViewModel();
-            expView.Expense = db.Expenses.SingleOrDefault(e => e.ExpenseID == id);
-            expView.ExpenseDetailsList = db.ExpenseDetails.Where(e => e.ExpenseId == id).ToList();
+            ExpenseAndDetailsViewModel expView = new ExpenseAndDetailsViewModel();
+            expView.Expense = expView.Expense.ModelToView(db.Expenses.SingleOrDefault(e => e.ExpenseID == id));
+            expView.ExpenseDetailsList = expView.ReturnModelList(db.ExpenseDetails.Where(e => e.ExpenseId == id).ToList());
 
             if (expView.Expense == null)
             {

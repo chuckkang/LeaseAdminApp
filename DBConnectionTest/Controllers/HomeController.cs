@@ -15,6 +15,7 @@ namespace DBConnectionTest.Controllers
 
         public ActionResult Index()
         {
+            Session["userid"] = "chuck";
             return RedirectToAction("index", "dashboard");
          
         }
@@ -66,7 +67,7 @@ namespace DBConnectionTest.Controllers
                     var isValid = BusinessLogic.Authenticate.CompareHash(submittedpass: pass, storedpass: checkuser.UserPass);
                     if (isValid)
                     {
-                        Print.Line(isValid + "--" + pass + "----" + checkuser.UserPass);
+                        //Print.Line(isValid + "--" + pass + "----" + checkuser.UserPass);
                         ViewBag.Message = "Logged in";
                         Session["userid"] = checkuser.UserId;
                         return RedirectToAction("", "dashboard");
@@ -80,12 +81,12 @@ namespace DBConnectionTest.Controllers
             }
             return View(login);
         }
-        //[HttpPost]
-        //public ActionResult Login()
-        //{
-        //    ViewBag.Message = "Login";
+        [HttpGet]
+        public ActionResult Logout()
+        {
+            Session["userid"] = null ;
 
-        //    return View();
-        //}
+            return View();
+        }
     }
 }

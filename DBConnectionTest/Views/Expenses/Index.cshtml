@@ -1,11 +1,12 @@
-﻿@using DBConnectionTest.Models
-@model IEnumerable<DBConnectionTest.Models.Expense>
+﻿
+@model IEnumerable<DBConnectionTest.ViewModels.Expenses.ExpenseModel>
 
 @{
     ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-
-<h2>Index</h2>
-
+<div>
+    <div class="pull-left"><h2>Expense List</h2></div>
+    <div class="pull-right">@Html.ActionLink("Add New Expense", "create", "expenses", null, new { @class = "btn btn-primary" })</div>
+</div>
 @Html.Partial("ExpensesListPartial", Model)

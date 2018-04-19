@@ -13,6 +13,7 @@ namespace DBConnectionTest.ViewModels
         public string Username { get; set; }
         [Required(ErrorMessage = "Please enter a password.")]
         [Display(Name = "Password")]
+        [DataType(DataType.Password)]
         public string Password { get; set; }
     }
 }

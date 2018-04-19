@@ -1,26 +1,27 @@
-﻿@model IEnumerable<DBConnectionTest.Models.ExpenseDetail>
+﻿@using DBConnectionTest.DataClasses
+@model IEnumerable<DBConnectionTest.ViewModels.Expenses.ExpenseDetailModel>
 
 @foreach (var item in Model)
 {
 <form method="post" action="/expenses/update">
     @Html.AntiForgeryToken()
-    <p>@item.Amount -- @item.ExpenseDetailsId</p>
+    <hr />
+    @*<p>@item.Amount -- @item.ExpenseDetailsId -- Expense responsibility @item.ExpenseTypeId</p>*@
     <div class="form-group">
-        @Html.LabelFor(i => item.Amount, htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-10">
-            @Html.EditorFor(i => item.Amount, new { htmlAttributes = new { @class = "form-control" } })
+        <div class="col-md-2">Line Items</div>
+        <div class="col-md-3">
+            @Html.LabelFor(i => item.ExpenseTypeId) @Html.DropDownListFor(i => item.ExpenseTypeId, LoadData.GetExpenseTypeSelect(item.ExpenseTypeId), new { @class = "form-control" })
+            @Html.ValidationMessageFor(i => item.ExpenseTypeId, "", new { @class = "text-danger" })
+        </div>
+        <div class="col-md-2">
+            @Html.LabelFor(i => item.Amount) @Html.EditorFor(i => item.Amount, new { htmlAttributes = new { @class = "form-control" } })
             @Html.ValidationMessageFor(i => item.Amount, "", new { @class = "text-danger" })
         </div>
-    </div>
-    <div class="form-group">
-        <div class="col-md-offset-2 col-md-10">
-            <input type="submit" value="Save" class="btn btn-default" />
+        <div class="col-md-2">
+            @Html.LabelFor(i => item.ExpenseResponsibilityId) @Html.DropDownListFor(i => item.ExpenseResponsibilityId, LoadData.GetExpenseResponsibilitySelect(item.ExpenseResponsibilityId), new { @class = "form-control" })
+            @Html.ValidationMessageFor(i => item.Amount, "", new { @class = "text-danger" })
         </div>
+        <div class="col-md-2"><br /><input type="submit" value="Save" class="btn btn-success  align-bottom" /></div>
     </div>
 </form>
     }
-
-<div>
-    @Html.ActionLink("Back to List", "Index")
-</div>
-}

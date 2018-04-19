@@ -25,3 +25,50 @@ textarea {
 
 tr:nth-child(odd)    { background-color:#ffffff; }
 tr:nth-child(even)    { background-color:#D9E6C4; }
+
+.expensetable {
+    font-size: small;
+}
+
+.col-xs {
+    width: 5%;
+    text-align: center;
+}
+.col-sm{
+    width: 10%;
+}
+.col-med{
+    width: 15%;
+}
+.col-lg {
+    width: 20%;
+}
+.nav-top-btn{
+   vertical-align:baseline;
+}
+.vendorlist {
+    font-size: small;
+}
+.vendorlist .vendor{
+        width: 25%;
+}
+
+.vendorlist .address {
+    width: 15%;
+}
+
+.vendorlist .city {
+    width: 10%;
+}
+.vendorlist .state {
+    width: 5%;
+}
+.vendorlist .zipcode {
+    width: 10%;
+}
+.vendorlist .description {
+    width: 20%;
+}
+.vendorlist .action {
+    width: 15%;
+}
