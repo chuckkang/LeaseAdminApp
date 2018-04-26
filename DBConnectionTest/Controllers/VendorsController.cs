@@ -8,7 +8,6 @@ using System.Web;
 using System.Web.Mvc;
 using DBConnectionTest.Models;
 using DBConnectionTest.ViewModels;
-using DBConnectionTest.ViewModels.Expenses;
 using DBConnectionTest.DataClasses;
 using System.Collections;
 namespace DBConnectionTest.Controllers

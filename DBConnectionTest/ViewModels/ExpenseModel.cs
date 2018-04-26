@@ -4,7 +4,7 @@ using System.Linq;
 using System.Web;
 using System.ComponentModel.DataAnnotations;
 using DBConnectionTest.Models;
-namespace DBConnectionTest.ViewModels.Expenses
+namespace DBConnectionTest.ViewModels
 {
     public class ExpenseModel
     {
@@ -56,34 +56,54 @@ namespace DBConnectionTest.ViewModels.Expenses
 
 
 
-        public ExpenseModel ModelToView(Expense expense)
+        public Expense ReturnEntity
         {
-                ExpenseModel expenseModel = new ExpenseModel()
+            get {
+                Expense expenseModel = new Expense()
                 {
-                    ExpenseID = expense.ExpenseID,
-                    ExpenseDateID = expense.ExpenseDateID,
-                    VendorID = expense.VendorID,
-                    InvoiceAmount = expense.InvoiceAmount,
-                    CheckNo = expense.CheckNo,
-                    ServiceMonthId = expense.ServiceMonthId,
-                    ServiceYearId = expense.ServiceYearId,
-                    TenantNote = expense.TenantNote,
-                    OwnerNote = expense.OwnerNote,
-                    InvoiceNo = expense.InvoiceNo,
-                    TenderTypeId = expense.TenderTypeId,
-                    ExpenseCleared = expense.ExpenseCleared,
-                    CreatedAt = expense.CreatedAt,
-                    ModifiedAt = expense.ModifiedAt
+                    ExpenseID = this.ExpenseID,
+                    ExpenseDateID = this.ExpenseDateID,
+                    VendorID = this.VendorID,
+                    InvoiceAmount = this.InvoiceAmount,
+                    CheckNo = this.CheckNo,
+                    ServiceMonthId = this.ServiceMonthId,
+                    ServiceYearId = this.ServiceYearId,
+                    TenantNote = this.TenantNote,
+                    OwnerNote = this.OwnerNote,
+                    InvoiceNo = this.InvoiceNo,
+                    TenderTypeId = this.TenderTypeId,
+                    ExpenseCleared = this.ExpenseCleared,
+                    CreatedAt = this.CreatedAt,
+                    ModifiedAt = this.ModifiedAt
                 };
-            return expenseModel;
+                return expenseModel;
+            }
+            set
+            {
+                this.ExpenseID = ExpenseID;
+                this.ExpenseDateID = ExpenseDateID;
+                this.VendorID = VendorID;
+                this.InvoiceAmount = InvoiceAmount;
+                this.CheckNo = CheckNo;
+                this.ServiceMonthId = ServiceMonthId;
+                this.ServiceYearId = ServiceYearId;
+                this.TenantNote = TenantNote;
+                this.OwnerNote = OwnerNote;
+                this.InvoiceNo = InvoiceNo;
+                this.TenderTypeId = TenderTypeId;
+                this.ExpenseCleared = ExpenseCleared;
+                this.CreatedAt = CreatedAt;
+                this.ModifiedAt = ModifiedAt; 
+            }
+
         }
-        public List<ExpenseModel> ModelToView(List<Expense> expenseList)
-        {
-            List<ExpenseModel> vmList = new List<ExpenseModel>();
+        public List<Expense> ReturnEntityList(List<ExpenseModel> expenseList)
+        { // a list<ExpenseModels> must be passed to return a list
+            List<Expense> vmList = new List<Expense>();
 
             foreach (var expense in expenseList)
             {
-                ExpenseModel vm = new ExpenseModel()
+                Expense vm = new Expense()
                 {
                     ExpenseID = expense.ExpenseID,
                     ExpenseDateID = expense.ExpenseDateID,
@@ -104,31 +124,10 @@ namespace DBConnectionTest.ViewModels.Expenses
             }
             return vmList;
         }
-        public List<Expense> ViewToModel(List<Expense> expenseList, string action)
-        { // action ["edit", "create", "display"]
-            List<Expense> vmList = new List<Expense>();
 
-            foreach (var expense in expenseList)
-            {
-                Expense vm = new Expense()
-                {
-                    ExpenseID = expense.ExpenseID,
-                    ExpenseDateID = expense.ExpenseDateID,
-                    VendorID = expense.VendorID,
-                    InvoiceAmount = expense.InvoiceAmount,
-                    CheckNo = expense.CheckNo,
-                    ServiceMonthId = expense.ServiceMonthId,
-                    ServiceYearId = expense.ServiceYearId,
-                    TenantNote = expense.TenantNote,
-                    OwnerNote = expense.OwnerNote,
-                    InvoiceNo = expense.InvoiceNo,
-                    TenderTypeId = expense.TenderTypeId,
-                    ExpenseCleared = expense.ExpenseCleared,
-                    CreatedAt = (action != "create" ? expense.CreatedAt : System.DateTime.Now),
-                    ModifiedAt = DateTime.Now
-                };
-            }
-            return vmList;
+        override public string ToString()
+        {
+            return $"ExpenseID: {ExpenseID}, ExpenseDateID: {ExpenseDateID}, VendorID: {VendorID}, InvoiceAmount: {InvoiceAmount}, CheckNo: {CheckNo}, ServiceMonthId: {ServiceMonthId}, ServiceYearId: {ServiceYearId}, TenantNote: {TenantNote}, OwnerNote: {OwnerNote}, InvoiceNo: {InvoiceNo}, TenderTypeId: {TenderTypeId}, ExpenseCleared: {ExpenseCleared}, CreatedAt: {CreatedAt}, ExpenseID: {ModifiedAt} ";
         }
     }
 

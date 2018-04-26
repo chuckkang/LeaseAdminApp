@@ -1,85 +1,79 @@
-﻿@model IEnumerable<DBConnectionTest.Models.Tenant>
+﻿@model IEnumerable<DBConnectionTest.ViewModels.TenantModel>
 
 @{
     ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Index</h2>
+<h2>List of Tenants</h2>
 
-<p>
-    @Html.ActionLink("Create New", "Create")
+<p class="text-left">
+    @Html.ActionLink("Add New Tenant", "create", "tenants", null, new { @class = "btn btn-primary btn-sm align-right" })
 </p>
-<table class="table">
+<table class="table ">
     <tr>
-        <th>
+        <th class="col-sm">
             @Html.DisplayNameFor(model => model.TenantName)
         </th>
-        <th>
+        <th class="col-xs">
             @Html.DisplayNameFor(model => model.AddlAddress)
         </th>
-        <th>
+        <th class="col-med">
             @Html.DisplayNameFor(model => model.TenantAddress)
         </th>
-        <th>
+        <th class="col-xs">
             @Html.DisplayNameFor(model => model.TenantCity)
         </th>
-        <th>
+        <th class="col-xs">
             @Html.DisplayNameFor(model => model.TenantState)
         </th>
-        <th>
+        <th class="col-xs">
             @Html.DisplayNameFor(model => model.TenantZip)
         </th>
      
-        <th>
+        <th class="col-med">
             @Html.DisplayNameFor(model => model.BillingContact)
         </th>
-        <th>
+        <th class="col-med">
             @Html.DisplayNameFor(model => model.BillingContactPhone)
         </th>
-        <th>
+        <th class="col-xs">
             @Html.DisplayNameFor(model => model.BillingContactEmail)
         </th>
-        <th>
-            @Html.DisplayNameFor(model => model.AdditionalInfo)
-        </th>
-        <th></th>
+        <th class="col-lg">Action</th>
     </tr>
 
 @foreach (var item in Model) {
     <tr>
-        <td>
+        <td class="col-sm">
             @Html.DisplayFor(modelItem => item.TenantName)
         </td>
-        <td>
+        <td class="col-xs">
             @Html.DisplayFor(modelItem => item.AddlAddress)
         </td>
-        <td>
+        <td class="col-med">
             @Html.DisplayFor(modelItem => item.TenantAddress)
         </td>
-        <td>
+        <td class="col-xs">
             @Html.DisplayFor(modelItem => item.TenantCity)
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.TenantState)
         </td>
-        <td>
+        <td class="col-xs">
             @Html.DisplayFor(modelItem => item.TenantZip)
         </td>
       
-        <td>
+        <td class="col-med">
             @Html.DisplayFor(modelItem => item.BillingContact)
         </td>
-        <td>
+        <td class="col-sm">
             @Html.DisplayFor(modelItem => item.BillingContactPhone)
         </td>
-        <td>
+        <td class="col-xs">
             @Html.DisplayFor(modelItem => item.BillingContactEmail)
         </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.AdditionalInfo)
-        </td>
-        <td>
+        <td class="col-lg">
             @Html.ActionLink("Edit", "Edit", new { id=item.TenantId }) |
             @Html.ActionLink("Details", "Details", new { id=item.TenantId }) |
             @Html.ActionLink("Delete", "Delete", new { id=item.TenantId })

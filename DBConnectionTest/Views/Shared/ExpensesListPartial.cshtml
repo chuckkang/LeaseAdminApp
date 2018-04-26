@@ -1,8 +1,6 @@
 ﻿@using DBConnectionTest.DataClasses;
-@using DBConnectionTest.Models;
-@using DBConnectionTest.ViewModels;
-@using DBConnectionTest.ViewModels.Expenses;
-@model IEnumerable<DBConnectionTest.ViewModels.Expenses.ExpenseModel>
+
+@model IEnumerable<DBConnectionTest.ViewModels.ExpenseModel>
 @{
     bool show = false;
     if (ViewContext.Controller.ValueProvider.GetValue("controller").RawValue.ToString().ToLower() != "vendors")

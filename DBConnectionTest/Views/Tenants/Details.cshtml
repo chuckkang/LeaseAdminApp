@@ -1,14 +1,16 @@
-﻿@model DBConnectionTest.Models.Tenant
+﻿@model DBConnectionTest.ViewModels.TenantModel
 
 @{
     ViewBag.Title = "Details";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Details</h2>
-
+<h2>@Model.TenantName</h2>
+<p class="text-left">
+    @Html.ActionLink("Tenant List", "", "tenants", null, new { @class = "btn btn-primary btn-sm align-right" })
+    @Html.ActionLink("Edit", "edit", "tenants", new { id = Model.TenantId }, new { @class = "btn btn-primary btn-sm align-right" })
+</p>
 <div>
-    <h4>Tenant</h4>
     <hr />
     <dl class="dl-horizontal">
         <dt>

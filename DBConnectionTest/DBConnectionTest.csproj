@@ -183,7 +183,7 @@
     <Compile Include="Models\ExpenseDetail.cs">
       <DependentUpon>LeaseAdmin.tt</DependentUpon>
     </Compile>
-    <Compile Include="ViewModels\Expenses\ExpenseAndDetailsViewModel.cs" />
+    <Compile Include="ViewModels\ExpenseAndDetailsViewModel.cs" />
     <Compile Include="Models\ExpenseResponsibility.cs">
       <DependentUpon>LeaseAdmin.tt</DependentUpon>
     </Compile>
@@ -220,10 +220,10 @@
     <Compile Include="Models\Metadata.cs" />
     <Compile Include="Models\PartialClasses.cs" />
     <Compile Include="Models\Print.cs" />
-    <Compile Include="ViewModels\Expenses\ExpenseDetailModel.cs" />
-    <Compile Include="ViewModels\Expenses\ExpenseModel.cs" />
+    <Compile Include="ViewModels\ExpenseDetailModel.cs" />
+    <Compile Include="ViewModels\ExpenseModel.cs" />
     <Compile Include="ViewModels\LoginViewModel.cs" />
-    <Compile Include="ViewModels\IModelConversion.cs" />
+    <Compile Include="ViewModels\ModelExtensions.cs" />
     <Compile Include="ViewModels\RegisterViewModel.cs" />
     <Compile Include="Models\sysdiagram.cs">
       <DependentUpon>LeaseAdmin.tt</DependentUpon>
@@ -246,6 +246,7 @@
     <Compile Include="Models\Vendor.cs">
       <DependentUpon>LeaseAdmin.tt</DependentUpon>
     </Compile>
+    <Compile Include="ViewModels\TenantModel.cs" />
     <Compile Include="ViewModels\Vendors\VendorViewModel.cs" />
     <Compile Include="ViewModels\Vendors\VendorExpensesViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

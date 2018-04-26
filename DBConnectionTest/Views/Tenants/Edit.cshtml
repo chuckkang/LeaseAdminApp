@@ -1,18 +1,20 @@
-﻿@model DBConnectionTest.Models.Tenant
+﻿@model DBConnectionTest.ViewModels.TenantModel
 
 @{
     ViewBag.Title = "Edit";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Edit</h2>
-
+<h2>@Model.TenantName - @Model.TenantAddress, @Model.TenantCity, @Model.TenantState, @Model.TenantZip</h2>
+<h5>@Html.LabelFor(m => m.ModifiedAt) @Html.DisplayFor(m => m.ModifiedAt) </h5>
+<p class="text-left">
+    @Html.ActionLink("Tenant List", "", "tenants", null, new { @class = "btn btn-primary btn-sm align-right" })
+</p>
 @using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
     
     <div class="form-horizontal">
-        <h4>Tenant</h4>
         <hr />
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
         @Html.HiddenFor(model => model.TenantId)
@@ -139,6 +141,8 @@
 
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
+                @Html.HiddenFor(model=>model.CreatedAt)
+                @Html.HiddenFor(model=>model.ModifiedAt)
                 <input type="submit" value="Save" class="btn btn-default" />
             </div>
         </div>

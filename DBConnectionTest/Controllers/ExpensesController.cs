@@ -7,8 +7,8 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using DBConnectionTest.Models;
-using DBConnectionTest.ViewModels.Expenses;
 using DBConnectionTest.ViewModels;
+
 namespace DBConnectionTest.Controllers
 {
     public class ExpensesController : Controller
@@ -19,15 +19,10 @@ namespace DBConnectionTest.Controllers
         public ActionResult Index()
         {
             ExpenseModel vm = new ExpenseModel();
-            List<ExpenseModel> model = vm.ModelToView(db.Expenses.OrderByDescending(e => e.ExpenseDateID).ToList());
+            List<ExpenseModel> model = Expense.ReturnModelList(db.Expenses.OrderByDescending(e => e.ExpenseDateID).ToList());
             return View(model);
         }
 
-        public bool CheckSession()
-        {
-            bool isValid = (Session["username"] != null ? false : true);
-            return ValidateRequest;
-        }
         // GET: Expenses/Details/5
         public ActionResult Details(int? id)
         {
@@ -36,14 +31,16 @@ namespace DBConnectionTest.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
             ExpenseAndDetailsViewModel expView = new ExpenseAndDetailsViewModel();
-            expView.Expense = expView.Expense.ModelToView(db.Expenses.SingleOrDefault(e => e.ExpenseID == id));
-            expView.ExpenseDetailsList = expView.ReturnModelList(db.ExpenseDetails.Where(e => e.ExpenseId == id).ToList());// i doint have access to the interface.
+            Expense exp = db.Expenses.SingleOrDefault(e => e.ExpenseID == id);
+            expView.Expense = exp.ReturnModel;
+            
 
             if (expView.Expense == null)
             {
                 return HttpNotFound();
             }
-            return View(expView);
+            expView.ExpenseDetailsList = expView.ReturnModelList(db.ExpenseDetails.Where(e => e.ExpenseId == id).ToList());// i doint have access to the interface.
+            return View(exp);
         }
 
         // GET: Expenses/Create
@@ -57,12 +54,17 @@ namespace DBConnectionTest.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "ExpenseID,ExpenseDateID,VendorID,InvoiceAmount,CheckNo,ServiceMonthId,ServiceYearId,TenantNote,OwnerNote,InvoiceNo,Tender,ExpenseCleared")] Expense expenses)
+        public ActionResult Create([Bind(Include = "ExpenseID,ExpenseDateID,VendorID,InvoiceAmount,CheckNo,ServiceMonthId,ServiceYearId,TenantNote,OwnerNote,InvoiceNo,Tender,ExpenseCleared")] ExpenseModel expenses)
         {
             if (ModelState.IsValid)
             {
-                db.Expenses.Add(expenses);
+                Expense expense = db.Expenses.SingleOrDefault(id => id.ExpenseID == expenses.ExpenseID);
+                expense = expenses.ReturnEntity;
+                expense.CreatedAt = DateTime.Now;
+                expense.ModifiedAt = DateTime.Now;
+                db.Expenses.Add(expense);
                 db.SaveChanges();
+                TempData["Message"] = "The expense has been submitted.";
                 return RedirectToAction("Index");
             }
 
@@ -77,9 +79,10 @@ namespace DBConnectionTest.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
             ExpenseAndDetailsViewModel expView = new ExpenseAndDetailsViewModel();
-            expView.Expense = expView.Expense.ModelToView(db.Expenses.SingleOrDefault(e => e.ExpenseID == id));
-            expView.ExpenseDetailsList = expView.ReturnModelList(db.ExpenseDetails.Where(e => e.ExpenseId == id).ToList());
-
+            Expense expense = (db.Expenses.SingleOrDefault(e => e.ExpenseID == id));
+            expView.Expense = expense.ReturnModel;
+            expView.ExpenseDetailsList = ExpenseDetail.ReturnModelList(db.ExpenseDetails.Where(e => e.ExpenseId == id).ToList());
+            Print.Line(expView.Expense.ToString());
             if (expView.Expense == null)
             {
                 return HttpNotFound();
@@ -92,12 +95,17 @@ namespace DBConnectionTest.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "ExpenseID,ExpenseDateID,VendorID,InvoiceAmount,CheckNo,ServiceMonthId,ServiceYearId,TenantNote,OwnerNote,InvoiceNo,Tender,ExpenseCleared")] Expense expenses)
+        public ActionResult Edit([Bind(Include = "ExpenseID,ExpenseDateID,VendorID,InvoiceAmount,CheckNo,ServiceMonthId,ServiceYearId,TenantNote,OwnerNote,InvoiceNo,Tender,ExpenseCleared,CreatedAt,ModifiedAt")] ExpenseModel expenses)
         {
             if (ModelState.IsValid)
             {
-                db.Entry(expenses).State = EntityState.Modified;
+                Expense exp = db.Expenses.SingleOrDefault(e => e.ExpenseID == expenses.ExpenseID);
+                exp.UpdateEntity(expenses);
+                exp.ModifiedAt = DateTime.Now;
+                Print.Line(exp.ToString());
+                db.Entry(exp).State = EntityState.Modified;
                 db.SaveChanges();
+                TempData["Message"] = "Expense has been updated.";
                 return RedirectToAction("Index");
             }
             return View(expenses);
@@ -124,6 +132,7 @@ namespace DBConnectionTest.Controllers
             {
                 return HttpNotFound();
             }
+            ExpenseModel expenseModel = expenses.ReturnModel;
             return View(expenses);
         }
 

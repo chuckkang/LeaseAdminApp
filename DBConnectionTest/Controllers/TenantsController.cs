@@ -8,6 +8,7 @@ using System.Web;
 using System.Web.Mvc;
 using DBConnectionTest.Models;
 using System.Diagnostics;
+using DBConnectionTest.ViewModels;
 
 namespace DBConnectionTest.Controllers
 {
@@ -19,8 +20,13 @@ namespace DBConnectionTest.Controllers
         public ActionResult Index()
         {
             List<Tenant> info = db.Tenants.Include(e => e.TenantLeaseInfoes).ToList();
-            this.PrintList(info);
-            return View(db.Tenants.ToList());
+            List<TenantModel> tmList = new List<TenantModel>();
+            foreach (Tenant entity in info)
+            {
+                tmList.Add(entity.ReturnModel());
+            }
+            //this.PrintList(info);
+            return View(tmList);
         }
 
         // GET: Tenants/Details/5
@@ -31,11 +37,14 @@ namespace DBConnectionTest.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
             Tenant tenant = db.Tenants.Find(id);
+            
             if (tenant == null)
             {
                 return HttpNotFound();
             }
-            return View(tenant);
+            TenantModel tenantmodel = new TenantModel();
+            tenantmodel = tenant.ReturnModel();
+            return View(tenantmodel);
         }
 
         // GET: Tenants/Create
@@ -49,16 +58,19 @@ namespace DBConnectionTest.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "TenantID,TenantName,Addl_Address,TenantAddress,TenantCity,TenantState,TenantZip,BillingAddress,BillingAdditional,BillingCity,BillingState,BillingZip,BillingContact,BillingContactPhone,BillingContactEmail,AdditionalInfo")] Tenant tenant)
+        public ActionResult Create([Bind(Include = "TenantID,TenantName,Addl_Address,TenantAddress,TenantCity,TenantState,TenantZip,BillingAddress,BillingAdditional,BillingCity,BillingState,BillingZip,BillingContact,BillingContactPhone,BillingContactEmail,AdditionalInfo")] TenantModel tenantModel)
         {
             if (ModelState.IsValid)
             {
+                Tenant tenant = tenantModel.ReturnEntityModel();
+                tenant.CreatedAt = DateTime.Now;
+                tenant.ModifiedAt = DateTime.Now;
                 db.Tenants.Add(tenant);
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
 
-            return View(tenant);
+            return View(tenantModel);
         }
 
         // GET: Tenants/Edit/5
@@ -73,7 +85,9 @@ namespace DBConnectionTest.Controllers
             {
                 return HttpNotFound();
             }
-            return View(tenant);
+            TenantModel tenantmodel = new TenantModel();
+            tenantmodel =tenant.ReturnModel();
+            return View(tenantmodel);
         }
 
         // POST: Tenants/Edit/5
@@ -81,15 +95,21 @@ namespace DBConnectionTest.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "TenantID,TenantName,Addl_Address,TenantAddress,TenantCity,TenantState,TenantZip,BillingAddress,BillingAdditional,BillingCity,BillingState,BillingZip,BillingContact,BillingContactPhone,BillingContactEmail,AdditionalInfo")] Tenant tenant)
+        public ActionResult Edit([Bind(Include = "TenantID,TenantName,Addl_Address,TenantAddress,TenantCity,TenantState,TenantZip,BillingAddress,BillingAdditional,BillingCity,BillingState,BillingZip,BillingContact,BillingContactPhone,BillingContactEmail,AdditionalInfo,CreatedAt, ModifiedAt")] TenantModel tenantModel)
         {
             if (ModelState.IsValid)
             {
-                db.Entry(tenant).State = EntityState.Modified;
+                //Tenant tenat = db.Tenants.SingleOrDefault(t => t.TenantId == tenantModel.TenantId);
+                Tenant updatedTenant = tenantModel.ReturnEntityModel();
+                Print.Line(tenantModel.ReturnModelToString());
+                updatedTenant.ModifiedAt = DateTime.Now;
+                Print.Line(tenantModel.ReturnModelToString());
+                db.Entry(updatedTenant).State = EntityState.Modified;
                 db.SaveChanges();
+                TempData["Message"] = "Tenant was successfully updated.";
                 return RedirectToAction("Index");
             }
-            return View(tenant);
+            return View(tenantModel);
         }
 
         // GET: Tenants/Delete/5
@@ -104,7 +124,8 @@ namespace DBConnectionTest.Controllers
             {
                 return HttpNotFound();
             }
-            return View(tenant);
+            TenantModel tm = tenant.ReturnModel();
+            return View(tm);
         }
 
         // POST: Tenants/Delete/5

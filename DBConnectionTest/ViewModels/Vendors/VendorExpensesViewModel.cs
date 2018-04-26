@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using DBConnectionTest.Models;
-using DBConnectionTest.ViewModels.Expenses;
 
 namespace DBConnectionTest.ViewModels
 {

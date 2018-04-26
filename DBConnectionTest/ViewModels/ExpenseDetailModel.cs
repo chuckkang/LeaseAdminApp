@@ -5,9 +5,9 @@ using System.Web;
 using System.ComponentModel.DataAnnotations;
 using DBConnectionTest.Models;
 
-namespace DBConnectionTest.ViewModels.Expenses
+namespace DBConnectionTest.ViewModels
 {
-    public class ExpenseDetailModel : IModelConversion
+    public class ExpenseDetailModel
     {
 
 
