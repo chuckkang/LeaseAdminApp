@@ -5,12 +5,12 @@
     ViewBag.Title = "Vendor List";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-
-<h2>List of Vendors</h2>
-
-<p class="text-right">
+<p class="text-left">
     @Html.ActionLink("Add New Vendor", "create", "vendors", null, new { @class = "btn btn-primary align-right" })
 </p>
+<h2>List of Vendors</h2>
+<hr />
+
 <table class="table vendorlist">
     <tr>
         <th class="vendor">

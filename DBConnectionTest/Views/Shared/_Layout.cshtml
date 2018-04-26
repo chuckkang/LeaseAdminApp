@@ -20,14 +20,15 @@
             </div>
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav pull-right">
-                     @if (Session["userid"] == null)
+                    @if (Session["userid"] == null)
                      {
-                        <li>@Html.ActionLink("Login", "Login", "Home")</li> }
-                    else
-                    {
-                      <li>@Html.ActionLink("Dashboard", "", "dashboard")</li>
-                      <li>@Html.ActionLink("Logout", "Logout", "Home")</li>
-                    }
+                <li>@Html.ActionLink("Dashboard", "", "dashboard")</li>
+                <li>@Html.ActionLink("Login", "Login", "Home")</li> }
+                else
+                {
+                    <li>@Html.ActionLink("Dashboard", "", "dashboard")</li>
+                    <li>@Html.ActionLink("Logout", "Logout", "Home")</li>
+                }
 
                 </ul>
             </div>

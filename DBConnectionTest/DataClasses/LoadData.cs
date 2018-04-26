@@ -167,12 +167,18 @@ namespace DBConnectionTest.DataClasses
             }
             return cyl;
         }
-        public static List<SelectListItem> GetBusinessDateSelect()
+        /// <summary>
+        /// Returns a List of SelectListITems for the businessdates.
+        /// </summary>
+        /// <returns></returns>
+        public static List<SelectListItem> GetBusinessDateSelect(int? dateid = 0)
         {
+            Print.Line(("04/26/2018" == DateTime.Now.ToString("MM/dd/yyyy")).ToString());
             List<SelectListItem> bday = new List<SelectListItem>();
+            bday.Add(new SelectListItem { Value = "", Text = "Select Date" });
             foreach (var day in BusinessDateList)
             {
-                bday.Add(new SelectListItem { Text = day.BusinessDay.ToString("MM/dd/yyyy"), Value = day.DateID.ToString() });
+                 bday.Add(new SelectListItem { Text = day.BusinessDay.ToString("MM/dd/yyyy"), Value = day.DateID.ToString() });
             }
             return bday;
         }

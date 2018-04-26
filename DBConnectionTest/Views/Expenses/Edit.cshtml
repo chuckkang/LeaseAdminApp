@@ -1,12 +1,13 @@
 ﻿
-@model DBConnectionTest.ViewModels.ExpenseAndDetailsViewModel
+@model DBConnectionTest.ViewModels.ExpenseModel
 @{
     ViewBag.Title = "Edit";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 <div class="col-md-12">
-    <div class="pull-left">@Html.ActionLink("Back to List", "Index", "expenses", null, new { @class = "btn btn-primary" })</div>
+    <div class="align-left">@Html.ActionLink("Back to List", "Index", "expenses", null, new { @class = "btn btn-primary" })</div>
 </div>
-<h1>Expense</h1>
-@Html.Partial("ExpensesEditPartial", Model.Expense)
-@Html.Partial("ExpenseDetailsListEditPartial", Model.ExpenseDetailsList)
+<div><h2>Edit Expense</h2></div>
+<hr />
+@Html.Partial("ExpensesEditPartial", Model)
+@*@Html.Partial("ExpenseDetailsListEditPartial", Model.ExpenseDetailsList)*@

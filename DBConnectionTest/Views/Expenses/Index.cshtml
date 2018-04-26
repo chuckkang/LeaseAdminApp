@@ -6,7 +6,12 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 <div>
-    <div class="pull-left">@Html.ActionLink("Add New Expense", "create", "expenses", null, new { @class = "btn btn-primary" })</div>
+    <div class="align-left">@Html.ActionLink("Add New Expense", "create", "expenses", null, new { @class = "btn btn-primary" })</div>
 </div>
 <h2>Expense List</h2>
+
+@if (TempData["Message"] != null)
+{
+    <h4 class="text-success">@TempData["Message"]</h4>
+}
 @Html.Partial("ExpensesListPartial", Model)

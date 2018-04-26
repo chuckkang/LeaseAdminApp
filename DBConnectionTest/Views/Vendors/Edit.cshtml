@@ -1,23 +1,16 @@
 ﻿@model DBConnectionTest.ViewModels.VendorViewModel
 
-@{
-    ViewBag.Title = "Edit";
-    Layout = "~/Views/Shared/_Layout.cshtml";
-}
-
-
 <div class="container">
-    <div class="row">
-        <div class="col-md-6"><h2>@Html.DisplayFor(e => e.VendorName)</h2></div>
-        <div class="col-md-6"><span class="pull-right vcenter"> @Html.ActionLink("Vendor List", "Index", "vendor", null, new { @class = "btn btn-primary ali" })</span></div>
+    <div class="row test-left">
+        <div class="col-md-6">@Html.ActionLink("Vendor List", "", "vendors", null, new { @class = "btn btn-primary" })</div>
     </div>
 </div>
+<h2>@Html.DisplayFor(e => e.VendorName)</h2>
 @using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
     
     <div class="form-horizontal">
-        <h4>Vendors</h4>
         <hr />
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
         @Html.HiddenFor(model => model.VendorID)
@@ -72,7 +65,7 @@
 
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Save" class="btn btn-default" />
+                <input type="submit" value="Save" class="btn btn-primary col-md-2" />
             </div>
         </div>
     </div>

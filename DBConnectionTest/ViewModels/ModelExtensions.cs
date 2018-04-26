@@ -9,10 +9,13 @@ namespace DBConnectionTest.Models
     
     public partial class Expense
     {
+        /// <summary>
+        /// Returns new ExpenseModel from ExpenseEntity
+        /// </summary>
         public ExpenseModel ReturnModel
         {
             get
-            {
+            { 
                 ExpenseModel em = new ExpenseModel()
                 {
                     ExpenseID = this.ExpenseID,
@@ -77,7 +80,7 @@ namespace DBConnectionTest.Models
             }
             return exm;
         }
-        public void UpdateEntity(ExpenseModel expense)
+        public void UpdateEntityFromModel(ExpenseModel expense)
         {
             this.ExpenseID = expense.ExpenseID;
             this.ExpenseDateID = expense.ExpenseDateID;
@@ -92,11 +95,11 @@ namespace DBConnectionTest.Models
             this.TenderTypeId = expense.TenderTypeId;
             this.ExpenseCleared = expense.ExpenseCleared;
             this.CreatedAt = expense.CreatedAt;
-            this.ModifiedAt = expense.ModifiedAt;
+            this.ModifiedAt = DateTime.Now;
         }
         public override string ToString()
         {
-            return $"ExpenseID: {ExpenseID}, ExpenseDateID: {ExpenseDateID}, VendorID: {VendorID}, InvoiceAmount: {InvoiceAmount}, CheckNo: {CheckNo}, ServiceMonthId: {ServiceMonthId}, ServiceYearId: {ServiceYearId}, TenantNote: {TenantNote}, OwnerNote: {OwnerNote}, InvoiceNo: {InvoiceNo}, TenderTypeId: {TenderTypeId}, ExpenseCleared: {ExpenseCleared}, CreatedAt: {CreatedAt}, ExpenseID: {ModifiedAt} ";
+            return $"ExpenseID: {ExpenseID}, ExpenseDateID: {ExpenseDateID}, VendorID: {VendorID}, InvoiceAmount: {InvoiceAmount}, CheckNo: {CheckNo}, ServiceMonthId: {ServiceMonthId}, ServiceYearId: {ServiceYearId}, TenantNote: {TenantNote}, OwnerNote: {OwnerNote}, InvoiceNo: {InvoiceNo}, TenderTypeId: {TenderTypeId}, ExpenseCleared: {ExpenseCleared}, CreatedAt: {CreatedAt}, ModifiedAt: {ModifiedAt} ";
         }
     }
 

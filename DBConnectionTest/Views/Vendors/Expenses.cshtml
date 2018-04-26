@@ -5,8 +5,12 @@
     ViewBag.Title = "Expenses";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
+<div class="row text-left col-md-12">
+    <div class="text-left col-md-4">@Html.ActionLink("Back To List", "", "vendors", null, new { @class = "btn btn-primary" }) @Html.ActionLink("Add New Vendor", "create", "vendors", null, new { @class = "btn btn-primary" })</div>
 
-<h2>View</h2>
-
+</div>
+<div class="row"><h1>@Model.Vendor.VendorName</h1>
+</div>
+<hr />
 @Html.Partial("VendorInfoPartial", Model.Vendor)
 @Html.Partial("ExpensesListPartial", Model.ExpensesList)
