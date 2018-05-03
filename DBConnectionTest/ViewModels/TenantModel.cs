@@ -19,7 +19,7 @@ namespace DBConnectionTest.ViewModels
         [Display(Name = "Additional Address")]
         public string AddlAddress { get; set; }
 
-        [Required(ErrorMessage = "Address is required."), MinLength(2, ErrorMessage = "Name must be longer than 2 characters"), MaxLength(50)]
+        [Required(ErrorMessage = "Address is required."), MinLength(2, ErrorMessage = "Name must be longer than 5 characters"), MaxLength(50)]
         [Display(Name = "Street Address")]
         public string TenantAddress { get; set; }
         [Required(ErrorMessage = "City is required."), MinLength(2, ErrorMessage = "Name must be longer than 2 characters"), MaxLength(50)]
@@ -30,7 +30,7 @@ namespace DBConnectionTest.ViewModels
         [Display(Name = "State")]
         public string TenantState { get; set; }
 
-        [Required(ErrorMessage = "ZipCode is required."), MinLength(5, ErrorMessage = "Name must be longer than 2 characters"), MaxLength(50)]
+        [Required(ErrorMessage = "ZipCode is required."), MinLength(5, ErrorMessage = "Name must be longer than 5 characters"), MaxLength(50)]
         [Display(Name = "Zip")]
         public string TenantZip { get; set; }
 
@@ -75,7 +75,7 @@ namespace DBConnectionTest.ViewModels
         [Display(Name = "Last Updated")]
         public System.DateTime ModifiedAt { get; set; }
 
-        public Tenant ReturnEntityModel(TenantModel tm)
+        public Tenant ReturnModel(TenantModel tm)
         {
             Tenant setTenant = new Tenant()
             {
@@ -143,31 +143,31 @@ namespace DBConnectionTest.Models
 
     public partial class Tenant
     {
-        public TenantModel ReturnModel(Tenant tm)
-        {
-            TenantModel setTenant = new TenantModel()
-            {
-                TenantId = tm.TenantId,
-                TenantName = tm.TenantName,
-                AddlAddress = tm.AddlAddress,
-                TenantAddress = tm.TenantAddress,
-                TenantCity = tm.TenantCity,
-                TenantState = tm.TenantState,
-                TenantZip = tm.TenantZip,
-                BillingAddress = tm.BillingAddress,
-                BillingAdditional = tm.BillingAdditional,
-                BillingCity = tm.BillingCity,
-                BillingState = tm.BillingState,
-                BillingZip = tm.BillingZip,
-                BillingContact = tm.BillingContact,
-                BillingContactPhone = tm.BillingContactPhone,
-                BillingContactEmail = tm.BillingContactEmail,
-                AdditionalInfo = tm.AdditionalInfo,
-                CreatedAt = tm.CreatedAt,
-                ModifiedAt = tm.ModifiedAt
-            };
-            return setTenant;
-        }
+        //public TenantModel ReturnModel(Tenant tm)
+        //{
+        //    TenantModel setTenant = new TenantModel()
+        //    {
+        //        TenantId = tm.TenantId,
+        //        TenantName = tm.TenantName,
+        //        AddlAddress = tm.AddlAddress,
+        //        TenantAddress = tm.TenantAddress,
+        //        TenantCity = tm.TenantCity,
+        //        TenantState = tm.TenantState,
+        //        TenantZip = tm.TenantZip,
+        //        BillingAddress = tm.BillingAddress,
+        //        BillingAdditional = tm.BillingAdditional,
+        //        BillingCity = tm.BillingCity,
+        //        BillingState = tm.BillingState,
+        //        BillingZip = tm.BillingZip,
+        //        BillingContact = tm.BillingContact,
+        //        BillingContactPhone = tm.BillingContactPhone,
+        //        BillingContactEmail = tm.BillingContactEmail,
+        //        AdditionalInfo = tm.AdditionalInfo,
+        //        CreatedAt = tm.CreatedAt,
+        //        ModifiedAt = tm.ModifiedAt
+        //    };
+        //    return setTenant;
+        //}
         public TenantModel ReturnModel()
         {
             TenantModel setTenant = new TenantModel()

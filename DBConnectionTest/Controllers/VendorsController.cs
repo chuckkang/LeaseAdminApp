@@ -20,10 +20,10 @@ namespace DBConnectionTest.Controllers
         public ActionResult Index()
         {
             List<Vendor> vendors = db.Vendors.OrderBy(v => v.VendorName).ToList();
-            List<VendorViewModel> vm = new List<VendorViewModel>();
+            List<VendorModel> vm = new List<VendorModel>();
             foreach (var ven in vendors)
             {
-                vm.Add(VendorViewModelCreate(ven));
+                vm.Add(ven.ReturnModel());
             }
             return View(vm);
         }
@@ -40,7 +40,8 @@ namespace DBConnectionTest.Controllers
             {
                 return HttpNotFound();
             }
-            return View(vendors);
+            VendorModel vvm = vendors.ReturnModel();
+            return View(vvm);
         }
 
         // GET: Vendors/Create
@@ -54,12 +55,13 @@ namespace DBConnectionTest.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "VendorID,VendorName,Address,City,State,ZipCode,Description")] VendorViewModel vendor)
+        public ActionResult Create([Bind(Include = "VendorID,VendorName,Address,City,State,ZipCode,Description,CreaatedAt,ModifiedAt")] VendorModel vendor)
         {
             if (ModelState.IsValid)
             {
-                Vendor newVendor = VendorCreate(vendor, "create");
-                db.Vendors.Add(newVendor);
+                Vendor vendorEntity = new Vendor();
+                vendorEntity.UpdateEntityModel(vendor);
+                db.Vendors.Add(vendorEntity);
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
@@ -75,28 +77,12 @@ namespace DBConnectionTest.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
             Vendor vendors = db.Vendors.Find(id);
-            VendorViewModel vendorview = VendorViewModelCreate(vendors);
+            VendorModel vendorview = vendors.ReturnModel();
             if (vendors == null)
             {
                 return HttpNotFound();
             }
             return View(vendorview);
-        }
-        private VendorViewModel VendorViewModelCreate(Vendor vendor)
-        {
-            VendorViewModel vm = new VendorViewModel()
-            {
-                VendorID = vendor.VendorID,
-                VendorName = vendor.VendorName,
-                Address = vendor.Address,
-                City = vendor.City,
-                State = vendor.State,
-                ZipCode = vendor.ZipCode,
-                Description = vendor.Description,
-                CreatedAt = vendor.CreatedAt,
-                ModfiedAt = vendor.ModfiedAt
-            };
-            return vm;
         }
         
         // POST: Vendors/Edit/5
@@ -104,52 +90,20 @@ namespace DBConnectionTest.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "VendorID,VendorName,Address,City,State,ZipCode,Description")] VendorViewModel vm)
+        public ActionResult Edit([Bind(Include = "VendorID,VendorName,Address,City,State,ZipCode,Description")] VendorModel vm)
         {
             if (ModelState.IsValid)
             {
-                Vendor vendor = VendorCreate(vm, "edit");
+                Vendor vendor = db.Vendors.Find(vm.VendorID);
+                vendor.UpdateEntityModel(vm);
                 db.Entry(vendor).State = EntityState.Modified;
                 db.SaveChanges();
+                TempData["Message"] = "Vendor has been updated";
                 return RedirectToAction("Index");
             }
             return View(vm);
         }
 
-        #region
-        
-        #endregion
-        private Vendor VendorCreate(VendorViewModel vm, string action)
-        { // this will return a vendor object based off the view model data
-            // action is "create", "edit", "display"
-            Vendor newVendor = new Vendor();
-
-            newVendor.VendorID = vm.VendorID;
-            newVendor.VendorName = vm.VendorName;
-            newVendor.Address = vm.Address;
-            newVendor.City = vm.City;
-            newVendor.State = vm.State;
-            newVendor.ZipCode = vm.ZipCode;
-            newVendor.Description = vm.Description;
-            newVendor.CreatedAt = (action!="create" ? vm.CreatedAt : DateTime.Now);
-            newVendor.ModfiedAt = DateTime.Now;
-
-            return newVendor;
-        }
-        // GET: Vendors/Delete/5
-        public ActionResult Delete(int? id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            Vendor vendors = db.Vendors.Find(id);
-            if (vendors == null)
-            {
-                return HttpNotFound();
-            }
-            return View(vendors);
-        }
 
         public ActionResult Expenses(int? vendorid)
         {
@@ -161,7 +115,7 @@ namespace DBConnectionTest.Controllers
             // get list of all expenses related to this vendor.
             VendorExpensesViewModel vendorExpenses = new VendorExpensesViewModel();
             Vendor vendor = db.Vendors.Find(vendorid);
-            vendorExpenses.Vendor = VendorViewModelCreate(vendor);
+            vendorExpenses.Vendor = vendor.ReturnModel();
             if (vendorExpenses.Vendor == null)
             {
                 return HttpNotFound();
@@ -202,42 +156,7 @@ namespace DBConnectionTest.Controllers
             }
             return vmList;
         }
-        private List<Expense> ExpensesCreate(List<Expense> expenseList, string action)
-        { // action ["edit", "create", "display"]
-            List<Expense> vmList = new List<Expense>();
-
-            foreach (var expense in expenseList)
-            {
-                Expense vm = new Expense()
-                {
-                    ExpenseID = expense.ExpenseID,
-                    ExpenseDateID = expense.ExpenseDateID,
-                    VendorID = expense.VendorID,
-                    InvoiceAmount = expense.InvoiceAmount,
-                    CheckNo = expense.CheckNo,
-                    ServiceMonthId = expense.ServiceMonthId,
-                    ServiceYearId = expense.ServiceYearId,
-                    TenantNote = expense.TenantNote,
-                    OwnerNote = expense.OwnerNote,
-                    InvoiceNo = expense.InvoiceNo,
-                    TenderTypeId = expense.TenderTypeId,
-                    ExpenseCleared = expense.ExpenseCleared,
-                    CreatedAt = (action!="create" ? expense.CreatedAt : System.DateTime.Now),
-                    ModifiedAt = DateTime.Now
-                };
-            }
-            return vmList;
-        }
-        // POST: Vendors/Delete/5
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
-        public ActionResult DeleteConfirmed(int id)
-        {
-            Vendor vendors = db.Vendors.Find(id);
-            db.Vendors.Remove(vendors);
-            db.SaveChanges();
-            return RedirectToAction("Index");
-        }
+        
 
         protected override void Dispose(bool disposing)
         {

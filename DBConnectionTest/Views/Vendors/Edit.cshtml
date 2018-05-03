@@ -1,8 +1,8 @@
-﻿@model DBConnectionTest.ViewModels.VendorViewModel
+﻿@model DBConnectionTest.ViewModels.VendorModel
 
 <div class="container">
     <div class="row test-left">
-        <div class="col-md-6">@Html.ActionLink("Vendor List", "", "vendors", null, new { @class = "btn btn-primary" })</div>
+        <div class="col-md-6">@Html.ActionLink("Back To List", "", "vendors", null, new { @class = "btn btn-primary" })</div>
     </div>
 </div>
 <h2>@Html.DisplayFor(e => e.VendorName)</h2>

@@ -1,4 +1,7 @@
-﻿
+﻿@using DBConnectionTest.ViewModels
+@using DBConnectionTest.DataClasses
+
+@model DBConnectionTest.ViewModels.DashboardViewModel
 @{
     ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
@@ -6,44 +9,66 @@
 
 <h2 class="text-center">Lease Administration Dashboard</h2>
 
-<div class="container col-md-12">
-    <div class="col-md-offset -1 col-md-5">
-        <div class="alertbox">These are the alerts</div>
-        <div class="alertbox">These are the messages</div>
-    </div>
-    <div class="col-md-5">
-        <div class="row">
-            <div class="col-xs-4 text-center">
-                <a href="/expenses">
-                    <h1><i class="glyphicon glyphicon-list text-info"></i></h1>
-                    Expenses<br />
+<div class="container col-sm-12">
+    <div class="col-sm-offset -1 col-sm-3">
+        <div class="alertbox panel panel-danger">
+            <div class="panel-heading text-center ">
+                <a href="/dashboard?monthId=@Model.AlertNav.PreviousMonthId&currentYearId=@Model.AlertNav.CurrentYear" class="pull-left alertbox ">
+                    <i class="dashboard-glpyh glyphicon glyphicon-chevron-left text-info "></i>
                 </a>
+                Monthly Expense Alerts
+                <a href="/dashboard?monthId=@Model.AlertNav.NextMonthId&currentYearId=@Model.AlertNav.CurrentYear" class="pull-right alertbox ">
+                    <i class="dashboard-glpyh glyphicon glyphicon-chevron-right text-info "></i>
+                </a>
+                <p>@Model.AlertNav.MonthName @Model.AlertNav.CurrentYear</p>
             </div>
-            <div class="col-xs-4 text-center">
-                <a href="/vendors">
-                    <h1><i class="glyphicon glyphicon-list text-info"></i></h1>
-                    Vendors<br />
-                </a>
-            </div>
-
-
-        </div>
-        <div class="row">
-            <div class="col-xs-4 text-center">
-                <a href="/TenantLeaseInfoes">
-                    <h1><i class="glyphicon glyphicon-list text-info"></i></h1>
-                    Leases<br />
-                </a>
-
-            </div>
-            <div class="col-xs-4 text-center">
-                <a href="/tenants">
-                    <h1><i class="glyphicon glyphicon-list text-info"></i></h1>
-                    Tenants<br />
-                </a>
+            <div class="alertbox  panel-body">
+                @if (Model.VendorAlertList.Count > 0)
+                {
+                    foreach (var i in Model.VendorAlertList)
+                    {
+                    <li>@LoadData.GetVendorName(i) - <label class="text-danger">Unpaid</label></li>
+                    }
+                }
+                else
+                {
+                    <p>All expenses are paid</p>
+                }
             </div>
         </div>
+       
     </div>
-   
+    <div class="col-sm-8">
+        <div class="row">
+            <div class="col-xs-6 text-center">
+                <a href="/expenses" class="h3">
+                    <i class="dashboard-glpyh glyphicon glyphicon-list text-info "></i><br />
+                    Expenses
+                </a>
+
+            </div>
+            <div class="col-xs-6 text-center">
+                <a href="/vendors" class="h3">
+                    <i class="dashboard-glpyh glyphicon glyphicon-list text-info"></i><br />
+                    Vendors
+                </a>
+            </div>
+        </div>
+        <div class="row"><br />
+            <div class="col-xs-6 text-center">
+                <a href="/TenantLeaseInfoes" class="h3">
+                   <i class="dashboard-glpyh glyphicon glyphicon-list text-info"></i><br />
+                    Leases
+                </a>
+
+            </div>
+            <div class="col-xs-6 text-center">
+                <a href="/tenants" class="h3">
+                    <i class="dashboard-glpyh glyphicon glyphicon-list text-info"></i><br />
+                    Tenants
+                </a>
+            </div>
+        </div>
+    </div>
 
 </div>

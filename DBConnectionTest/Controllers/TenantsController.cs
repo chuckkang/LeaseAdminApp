@@ -50,7 +50,8 @@ namespace DBConnectionTest.Controllers
         // GET: Tenants/Create
         public ActionResult Create()
         {
-            return View();
+            TenantModel tm = new TenantModel();
+            return View(tm);
         }
 
         // POST: Tenants/Create
@@ -58,8 +59,9 @@ namespace DBConnectionTest.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "TenantID,TenantName,Addl_Address,TenantAddress,TenantCity,TenantState,TenantZip,BillingAddress,BillingAdditional,BillingCity,BillingState,BillingZip,BillingContact,BillingContactPhone,BillingContactEmail,AdditionalInfo")] TenantModel tenantModel)
+        public ActionResult Create([Bind(Include = "TenantId,TenantName,Addl_Address,TenantAddress,TenantCity,TenantState,TenantZip,BillingAddress,BillingAdditional,BillingCity,BillingState,BillingZip,BillingContact,BillingContactPhone,BillingContactEmail,AdditionalInfo")] TenantModel tenantModel)
         {
+            Print.Line(tenantModel.ReturnModelToString());
             if (ModelState.IsValid)
             {
                 Tenant tenant = tenantModel.ReturnEntityModel();

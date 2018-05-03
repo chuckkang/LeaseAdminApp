@@ -114,15 +114,6 @@ namespace DBConnectionTest.Controllers
             return View(expenses);
         }
 
-        [Route("expenses/update/{id}/{id2}")]
-        public ActionResult Update(string id, string id2)
-        {
-            ViewBag.expensesid = Request.Form.AllKeys; // This returns a list of alll items in teh form.
-            ViewBag.id = id;
-            ViewBag.id2 = id2;
-            //ViewBag.expensesdetailsid = expensesdetailsid;
-            return View("Test");
-        }
         // GET: Expenses/Delete/5
         public ActionResult Delete(int? id)
         {
@@ -136,7 +127,7 @@ namespace DBConnectionTest.Controllers
                 return HttpNotFound();
             }
             ExpenseModel expenseModel = expenses.ReturnModel;
-            return View(expenses);
+            return View(expenseModel);
         }
 
         // POST: Expenses/Delete/5
@@ -145,8 +136,17 @@ namespace DBConnectionTest.Controllers
         public ActionResult DeleteConfirmed(int id)
         {
             Expense expenses = db.Expenses.Find(id);
+            // remove the line items from expense details.;
+            IEnumerable<ExpenseDetail> explist = db.ExpenseDetails.Where(e => e.ExpenseId == id);
+            foreach (ExpenseDetail ed in explist)
+            {
+                db.ExpenseDetails.Remove(ed);
+            }
+            
             db.Expenses.Remove(expenses);
+            TempData["Message"] = "Expense has been deleted";
             db.SaveChanges();
+            
             return RedirectToAction("Index");
         }
 

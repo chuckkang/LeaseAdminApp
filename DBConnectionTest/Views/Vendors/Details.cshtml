@@ -1,17 +1,15 @@
-﻿@model DBConnectionTest.ViewModels.VendorViewModel
+﻿@model DBConnectionTest.ViewModels.VendorModel
 
 @{
     ViewBag.Title = "Details";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-<p class="text-right">
-    @Html.ActionLink("Add New Vendor", "create", "vendors", null, new { @class = "btn btn-primary align-right" })
+<p class="text-left">
+    @Html.ActionLink("Back to List", "Index", null, new { @class = "btn btn-primary" }) @Html.ActionLink("Add New Vendor", "create", "vendors", null, new { @class = "btn btn-primary align-right" })
 </p>
-<h2>Details</h2>
+<h2>@Model.VendorName  @Html.ActionLink("edit", "edit", new { id = @Model.VendorID }, new { @class = "glyphicon-sm glyphicon glyphicon-pencil text-primary" }) </h2>
 <hr />
 <div>
-    <h4>Vendors</h4>
-    <hr />
     <dl class="dl-horizontal">
         <dt>
             @Html.DisplayNameFor(model => model.VendorName)
@@ -59,7 +57,4 @@
 
     </dl>
 </div>
-<p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.VendorID }) |
-    @Html.ActionLink("Back to List", "Index")
-</p>
+

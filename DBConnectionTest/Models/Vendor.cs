@@ -18,6 +18,7 @@ namespace DBConnectionTest.Models
         public Vendor()
         {
             this.Expenses = new HashSet<Expense>();
+            this.ExpenseAlerts = new HashSet<ExpenseAlert>();
         }
     
         public int VendorID { get; set; }
@@ -32,5 +33,7 @@ namespace DBConnectionTest.Models
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Expense> Expenses { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<ExpenseAlert> ExpenseAlerts { get; set; }
     }
 }

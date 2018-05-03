@@ -1,23 +1,22 @@
-﻿@model DBConnectionTest.ViewModels.ExpenseModel
+﻿@using DBConnectionTest.DataClasses
+@model DBConnectionTest.ViewModels.ExpenseModel
 
 @{
     ViewBag.Title = "Delete";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Delete</h2>
+<h2>Delete Expense</h2>
 <hr />
-<h3>Are you sure you want to delete this?</h3>
+<h3 class="text-danger">Are you sure you want to delete this?</h3>
 <div>
-    <h4>Expenses</h4>
-    <hr />
     <dl class="dl-horizontal">
         <dt>
             @Html.DisplayNameFor(model => model.ExpenseDateID)
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.ExpenseDateID)
+            @LoadData.GetBusinessDate(Model.ExpenseDateID)
         </dd>
 
         <dt>
@@ -25,7 +24,7 @@
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.VendorID)
+            @LoadData.GetVendorName(Model.VendorID)
         </dd>
 
         <dt>
@@ -37,27 +36,29 @@
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.CheckNo)
+            @Html.DisplayNameFor(model => model.TenderTypeId)
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.CheckNo)
+            @LoadData.GetTenderType(Model.TenderTypeId)
         </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ExpenseCleared)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ExpenseCleared)
+        </dd>
+
 
         <dt>
             @Html.DisplayNameFor(model => model.ServiceMonthId)
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.ServiceMonthId)
-        </dd>
+            @LoadData.GetCalendarMonth(Model.ServiceMonthId)  @LoadData.GetCalendarYear(Model.ServiceYearId)
 
-        <dt>
-            @Html.DisplayNameFor(model => model.ServiceYearId)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.ServiceYearId)
         </dd>
 
         <dt>
@@ -84,21 +85,6 @@
             @Html.DisplayFor(model => model.InvoiceNo)
         </dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Tender)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Tender)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.ExpenseCleared)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.ExpenseCleared)
-        </dd>
 
     </dl>
 
@@ -106,9 +92,9 @@
     {
         @Html.AntiForgeryToken()
 
-        <div class="form-actions no-color">
-            <input type="submit" value="Delete" class="btn btn-default" /> |
-            @Html.ActionLink("Back to List", "Index")
-        </div>
+    <div class="form-action no-color col-sm-offset-2">
+        <p><input type="submit" value="Delete" class="btn btn-danger col-sm-2" /> <input type="button" value="Cancel" class="btn btn-primary col-sm-2" /></p>
+    </div>
     }
 </div>
+<br />

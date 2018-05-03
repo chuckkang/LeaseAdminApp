@@ -7,7 +7,6 @@
       <Diagram DiagramId="e6a695e12ab040c189f46b60114e390a" Name="Diagram1">
         <EntityTypeShape EntityType="LeaseAdminModel.BusinessDate" Width="1.5" PointX="0.75" PointY="5" IsExpanded="true" />
         <EntityTypeShape EntityType="LeaseAdminModel.CalendarMonth" Width="1.5" PointX="0.75" PointY="1" IsExpanded="true" />
-        <EntityTypeShape EntityType="LeaseAdminModel.CalendarYear" Width="1.5" PointX="0.75" PointY="9.25" IsExpanded="true" />
         <EntityTypeShape EntityType="LeaseAdminModel.ExpenseDetail" Width="1.5" PointX="8.25" PointY="4.25" IsExpanded="true" />
         <EntityTypeShape EntityType="LeaseAdminModel.ExpenseResponsibility" Width="1.5" PointX="6" PointY="0.75" IsExpanded="true" />
         <EntityTypeShape EntityType="LeaseAdminModel.Expense" Width="1.5" PointX="3" PointY="3.5" IsExpanded="true" />
@@ -26,7 +25,6 @@
         <AssociationConnector Association="LeaseAdminModel.FK_Expenses_BusinessDates" ManuallyRouted="false" />
         <AssociationConnector Association="LeaseAdminModel.FK_Incomes_BusinessDates" ManuallyRouted="false" />
         <AssociationConnector Association="LeaseAdminModel.FK_Expenses_CalendarMonths" ManuallyRouted="false" />
-        <AssociationConnector Association="LeaseAdminModel.FK_Expenses_CalendarYears" ManuallyRouted="false" />
         <AssociationConnector Association="LeaseAdminModel.FK_ExpenseDetails_ExpenseResponsibilities" ManuallyRouted="false" />
         <AssociationConnector Association="LeaseAdminModel.FK_ExpenseDetails_Expenses" ManuallyRouted="false" />
         <AssociationConnector Association="LeaseAdminModel.FK_ExpenseDetails_ExpensesType" ManuallyRouted="false" />
@@ -34,6 +32,10 @@
         <AssociationConnector Association="LeaseAdminModel.FK_Expenses_Vendors" ManuallyRouted="false" />
         <AssociationConnector Association="LeaseAdminModel.FK_Incomes_IncomeTypes" ManuallyRouted="false" />
         <AssociationConnector Association="LeaseAdminModel.FK_TenantLeaseInfo_Tenants" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="LeaseAdminModel.ExpenseAlert" Width="1.5" PointX="3" PointY="14.625" />
+        <AssociationConnector Association="LeaseAdminModel.FK_ExpenseAlerts_VendorId" />
+        <EntityTypeShape EntityType="LeaseAdminModel.CalendarYear" Width="1.5" PointX="0.625" PointY="8.25" />
+        <AssociationConnector Association="LeaseAdminModel.FK_Expenses_CalendarYears" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

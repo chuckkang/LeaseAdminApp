@@ -18,6 +18,7 @@ namespace DBConnectionTest.DataClasses
         private static List<BusinessDate> BusinessDateList = new List<BusinessDate>();
         private static List<ExpenseResponsibility> ExpenseResponsibilityList = new List<ExpenseResponsibility>();
         private static List<ExpensesType> ExpenseTypeList = new List<ExpensesType>();
+        private static List<ExpenseAlert> ExpenseAlertList = new List<ExpenseAlert>();
         public static void PopulateLists()
         {
             // this is to be called from the app_start
@@ -28,6 +29,7 @@ namespace DBConnectionTest.DataClasses
             BusinessDateList = db.BusinessDates.OrderByDescending(y => y.BusinessDay).ToList();
             ExpenseResponsibilityList = db.ExpenseResponsibilities.OrderBy(t => t.ExpenseResponsibilityType).ToList();
             ExpenseTypeList = db.ExpensesTypes.OrderBy(t => t.ExpenseType).ToList();
+            ExpenseAlertList = db.ExpenseAlerts.ToList();
         }
 
         public static List<Vendor> GetVendorList()
@@ -48,6 +50,11 @@ namespace DBConnectionTest.DataClasses
             return CalendarMonthList;
         }
 
+        /// <summary>
+        /// Get name of month based on id.
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         public static string GetCalendarMonth(int? id)
         {
             if (id == null)
@@ -67,9 +74,12 @@ namespace DBConnectionTest.DataClasses
             {
                 return null;
             }
-            return CalendarYearList.Single(v => v.CalendarYearID == id).CalYear;
+            return CalendarYearList.Single(v => v.CalendarYearID == id).CalYear.ToString();
         }
-
+        public static int GetCalendarYearIDByYear(int _year)
+        {
+            return CalendarYearList.SingleOrDefault(v => v.CalYear == _year).CalendarYearID;
+        }
         public static List<TenderType> GetTenderTypeList()
         {
             return TenderTypeList;
@@ -126,6 +136,11 @@ namespace DBConnectionTest.DataClasses
                 return null;
             }
             return ExpenseTypeList.SingleOrDefault(v => v.ExpenseTypeID == id).ExpenseType;
+        }
+
+        public static List<ExpenseAlert> GetExpenseAlertList()
+        {
+            return ExpenseAlertList;
         }
 
         /*

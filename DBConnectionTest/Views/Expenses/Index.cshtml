@@ -5,11 +5,11 @@
     ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-<div>
-    <div class="align-left">@Html.ActionLink("Add New Expense", "create", "expenses", null, new { @class = "btn btn-primary" })</div>
-</div>
-<h2>Expense List</h2>
 
+<h2>Expense List</h2>
+<div>
+    <div class="align-left">@Html.ActionLink("Add New Expense", "create", "expenses", null, new { @class = "btn btn-primary btn-sm " })</div>
+</div>
 @if (TempData["Message"] != null)
 {
     <h4 class="text-success">@TempData["Message"]</h4>

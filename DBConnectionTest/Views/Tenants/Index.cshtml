@@ -10,6 +10,10 @@
 <p class="text-left">
     @Html.ActionLink("Add New Tenant", "create", "tenants", null, new { @class = "btn btn-primary btn-sm align-right" })
 </p>
+@if (TempData["Message"]!=null)
+{
+    <p class="text-success">@TempData["Message"]</p>
+}
 <table class="table ">
     <tr>
         <th class="col-sm">
@@ -75,8 +79,7 @@
         </td>
         <td class="col-lg">
             @Html.ActionLink("Edit", "Edit", new { id=item.TenantId }) |
-            @Html.ActionLink("Details", "Details", new { id=item.TenantId }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.TenantId })
+            @Html.ActionLink("Details", "Details", new { id=item.TenantId }) 
         </td>
     </tr>
 }

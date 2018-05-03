@@ -15,5 +15,6 @@ namespace DBConnectionTest.Models
             Debug.WriteLine(str.ToString());
             Debug.WriteLine("----------------------Debug----------------------------");
         }
+
     }
 }

@@ -77,8 +77,9 @@
                 @Html.DisplayFor(modelItem => item.ExpenseCleared)
             </td>
             <td class="col-lg">
+                @Html.Hidden("controller", @HttpContext.Current.Request.RequestContext.RouteData.Values["controller"].ToString())
                 @Html.ActionLink("Details", "edit", "expenses", new { id = item.ExpenseID }, null) |
-                @Html.ActionLink("Delete", "delete", new { id = item.ExpenseID })
+                @Html.ActionLink("Delete", "delete", "expenses", new { id = item.ExpenseID}, null)
             </td>
         </tr>
     }

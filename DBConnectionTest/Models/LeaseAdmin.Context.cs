@@ -27,7 +27,6 @@ namespace DBConnectionTest.Models
     
         public virtual DbSet<BusinessDate> BusinessDates { get; set; }
         public virtual DbSet<CalendarMonth> CalendarMonths { get; set; }
-        public virtual DbSet<CalendarYear> CalendarYears { get; set; }
         public virtual DbSet<ExpenseDetail> ExpenseDetails { get; set; }
         public virtual DbSet<ExpenseResponsibility> ExpenseResponsibilities { get; set; }
         public virtual DbSet<Expense> Expenses { get; set; }
@@ -43,5 +42,7 @@ namespace DBConnectionTest.Models
         public virtual DbSet<TenderType> TenderTypes { get; set; }
         public virtual DbSet<User> Users { get; set; }
         public virtual DbSet<Vendor> Vendors { get; set; }
+        public virtual DbSet<ExpenseAlert> ExpenseAlerts { get; set; }
+        public virtual DbSet<CalendarYear> CalendarYears { get; set; }
     }
 }

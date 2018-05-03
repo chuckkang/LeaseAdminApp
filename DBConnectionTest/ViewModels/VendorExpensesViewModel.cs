@@ -9,7 +9,7 @@ namespace DBConnectionTest.ViewModels
     public class VendorExpensesViewModel
     {
 
-        public VendorViewModel Vendor { get; set; } = new VendorViewModel();
+        public VendorModel Vendor { get; set; } = new VendorModel();
         public List<ExpenseModel> ExpensesList { get; set; } = new List<ExpenseModel>();
     }
 }

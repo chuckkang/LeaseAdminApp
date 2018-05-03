@@ -6,7 +6,7 @@ using System.ComponentModel.DataAnnotations;
 using DBConnectionTest.Models;
 namespace DBConnectionTest.ViewModels
 {
-    public class VendorViewModel
+    public class VendorModel
     {
         [Key]
         public int VendorID { get; set; }

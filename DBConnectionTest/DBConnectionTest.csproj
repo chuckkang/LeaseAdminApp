@@ -156,6 +156,7 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="BusinessLogic\Alert.cs" />
     <Compile Include="BusinessLogic\Authenticate.cs" />
     <Compile Include="Controllers\DashboardController.cs" />
     <Compile Include="Controllers\ExpensesController.cs" />
@@ -164,6 +165,7 @@
     <Compile Include="Controllers\TenantLeaseInfoesController.cs" />
     <Compile Include="Controllers\TenantsController.cs" />
     <Compile Include="Controllers\VendorsController.cs" />
+    <Compile Include="DataClasses\Alerts.cs" />
     <Compile Include="DataClasses\LoadData.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -180,9 +182,13 @@
     <Compile Include="Models\Expense.cs">
       <DependentUpon>LeaseAdmin.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\ExpenseAlert.cs">
+      <DependentUpon>LeaseAdmin.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\ExpenseDetail.cs">
       <DependentUpon>LeaseAdmin.tt</DependentUpon>
     </Compile>
+    <Compile Include="ViewModels\DashboardViewModel.cs" />
     <Compile Include="ViewModels\ExpenseAndDetailsViewModel.cs" />
     <Compile Include="Models\ExpenseResponsibility.cs">
       <DependentUpon>LeaseAdmin.tt</DependentUpon>
@@ -223,7 +229,7 @@
     <Compile Include="ViewModels\ExpenseDetailModel.cs" />
     <Compile Include="ViewModels\ExpenseModel.cs" />
     <Compile Include="ViewModels\LoginViewModel.cs" />
-    <Compile Include="ViewModels\ModelExtensions.cs" />
+    <Compile Include="ViewModels\ExpensePartial.cs" />
     <Compile Include="ViewModels\RegisterViewModel.cs" />
     <Compile Include="Models\sysdiagram.cs">
       <DependentUpon>LeaseAdmin.tt</DependentUpon>
@@ -247,8 +253,9 @@
       <DependentUpon>LeaseAdmin.tt</DependentUpon>
     </Compile>
     <Compile Include="ViewModels\TenantModel.cs" />
-    <Compile Include="ViewModels\Vendors\VendorViewModel.cs" />
-    <Compile Include="ViewModels\Vendors\VendorExpensesViewModel.cs" />
+    <Compile Include="ViewModels\VendorPartial.cs" />
+    <Compile Include="ViewModels\VendorModel.cs" />
+    <Compile Include="ViewModels\VendorExpensesViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

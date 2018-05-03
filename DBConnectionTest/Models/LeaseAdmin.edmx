@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="LeaseAdminModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="LeaseAdminModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="BusinessDates">
           <Key>
             <PropertyRef Name="DateID" />
@@ -24,7 +24,16 @@
             <PropertyRef Name="CalendarYearID" />
           </Key>
           <Property Name="CalendarYearID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="CalYear" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="CalYear" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="ExpenseAlerts">
+          <Key>
+            <PropertyRef Name="ExpenseAlertID" />
+          </Key>
+          <Property Name="ExpenseAlertID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="VendorId" Type="int" Nullable="false" />
+          <Property Name="CreatedAt" Type="datetime" Nullable="false" />
+          <Property Name="ModifiedAt" Type="datetime" Nullable="false" />
         </EntityType>
         <EntityType Name="ExpenseDetails">
           <Key>
@@ -212,6 +221,18 @@
           <Property Name="CreatedAt" Type="datetime" />
           <Property Name="ModfiedAt" Type="datetime" />
         </EntityType>
+        <Association Name="FK_ExpenseAlerts_VendorId">
+          <End Role="Vendors" Type="Self.Vendors" Multiplicity="1" />
+          <End Role="ExpenseAlerts" Type="Self.ExpenseAlerts" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Vendors">
+              <PropertyRef Name="VendorID" />
+            </Principal>
+            <Dependent Role="ExpenseAlerts">
+              <PropertyRef Name="VendorId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_ExpenseDetails_ExpenseResponsibilities">
           <End Role="ExpenseResponsibilities" Type="Self.ExpenseResponsibilities" Multiplicity="1" />
           <End Role="ExpenseDetails" Type="Self.ExpenseDetails" Multiplicity="*" />
@@ -348,6 +369,7 @@
           <EntitySet Name="BusinessDates" EntityType="Self.BusinessDates" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="CalendarMonths" EntityType="Self.CalendarMonths" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="CalendarYears" EntityType="Self.CalendarYears" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ExpenseAlerts" EntityType="Self.ExpenseAlerts" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ExpenseDetails" EntityType="Self.ExpenseDetails" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ExpenseResponsibilities" EntityType="Self.ExpenseResponsibilities" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Expenses" EntityType="Self.Expenses" Schema="dbo" store:Type="Tables" />
@@ -363,6 +385,10 @@
           <EntitySet Name="TenderTypes" EntityType="Self.TenderTypes" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Users" EntityType="Self.Users" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Vendors" EntityType="Self.Vendors" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_ExpenseAlerts_VendorId" Association="Self.FK_ExpenseAlerts_VendorId">
+            <End Role="Vendors" EntitySet="Vendors" />
+            <End Role="ExpenseAlerts" EntitySet="ExpenseAlerts" />
+          </AssociationSet>
           <AssociationSet Name="FK_ExpenseDetails_ExpenseResponsibilities" Association="Self.FK_ExpenseDetails_ExpenseResponsibilities">
             <End Role="ExpenseResponsibilities" EntitySet="ExpenseResponsibilities" />
             <End Role="ExpenseDetails" EntitySet="ExpenseDetails" />
@@ -408,8 +434,7 @@
             <End Role="TenantLeaseInfo" EntitySet="TenantLeaseInfo" />
           </AssociationSet>
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="LeaseAdminModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -429,14 +454,6 @@
           <Property Name="CalendarMonthID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="CalMonth" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" />
           <NavigationProperty Name="Expenses" Relationship="Self.FK_Expenses_CalendarMonths" FromRole="CalendarMonths" ToRole="Expenses" />
-        </EntityType>
-        <EntityType Name="CalendarYear">
-          <Key>
-            <PropertyRef Name="CalendarYearID" />
-          </Key>
-          <Property Name="CalendarYearID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="CalYear" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
-          <NavigationProperty Name="Expenses" Relationship="Self.FK_Expenses_CalendarYears" FromRole="CalendarYears" ToRole="Expenses" />
         </EntityType>
         <EntityType Name="ExpenseDetail">
           <Key>
@@ -484,10 +501,10 @@
           <Property Name="ModifiedAt" Type="DateTime" Nullable="false" Precision="3" />
           <NavigationProperty Name="BusinessDate" Relationship="Self.FK_Expenses_BusinessDates" FromRole="Expenses" ToRole="BusinessDates" />
           <NavigationProperty Name="CalendarMonth" Relationship="Self.FK_Expenses_CalendarMonths" FromRole="Expenses" ToRole="CalendarMonths" />
-          <NavigationProperty Name="CalendarYear" Relationship="Self.FK_Expenses_CalendarYears" FromRole="Expenses" ToRole="CalendarYears" />
           <NavigationProperty Name="ExpenseDetails" Relationship="Self.FK_ExpenseDetails_Expenses" FromRole="Expenses" ToRole="ExpenseDetails" />
           <NavigationProperty Name="TenderType" Relationship="Self.FK_Expenses_TenderTypes" FromRole="Expenses" ToRole="TenderTypes" />
           <NavigationProperty Name="Vendor" Relationship="Self.FK_Expenses_Vendors" FromRole="Expenses" ToRole="Vendors" />
+          <NavigationProperty Name="CalendarYear" Relationship="LeaseAdminModel.FK_Expenses_CalendarYears" FromRole="Expense" ToRole="CalendarYear" />
         </EntityType>
         <EntityType Name="ExpensesType">
           <Key>
@@ -641,6 +658,7 @@
           <Property Name="CreatedAt" Type="DateTime" Precision="3" />
           <Property Name="ModfiedAt" Type="DateTime" Precision="3" />
           <NavigationProperty Name="Expenses" Relationship="Self.FK_Expenses_Vendors" FromRole="Vendors" ToRole="Expenses" />
+          <NavigationProperty Name="ExpenseAlerts" Relationship="LeaseAdminModel.FK_ExpenseAlerts_VendorId" FromRole="Vendor" ToRole="ExpenseAlert" />
         </EntityType>
         <Association Name="FK_Expenses_BusinessDates">
           <End Role="BusinessDates" Type="Self.BusinessDate" Multiplicity="1" />
@@ -675,18 +693,6 @@
             </Principal>
             <Dependent Role="Expenses">
               <PropertyRef Name="ServiceMonthId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Expenses_CalendarYears">
-          <End Role="CalendarYears" Type="Self.CalendarYear" Multiplicity="1" />
-          <End Role="Expenses" Type="LeaseAdminModel.Expense" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="CalendarYears">
-              <PropertyRef Name="CalendarYearID" />
-            </Principal>
-            <Dependent Role="Expenses">
-              <PropertyRef Name="ServiceYearId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -777,7 +783,6 @@
         <EntityContainer Name="LeaseAdminEntities" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="BusinessDates" EntityType="Self.BusinessDate" />
           <EntitySet Name="CalendarMonths" EntityType="Self.CalendarMonth" />
-          <EntitySet Name="CalendarYears" EntityType="Self.CalendarYear" />
           <EntitySet Name="ExpenseDetails" EntityType="Self.ExpenseDetail" />
           <EntitySet Name="ExpenseResponsibilities" EntityType="Self.ExpenseResponsibility" />
           <EntitySet Name="Expenses" EntityType="LeaseAdminModel.Expense" />
@@ -803,10 +808,6 @@
           </AssociationSet>
           <AssociationSet Name="FK_Expenses_CalendarMonths" Association="Self.FK_Expenses_CalendarMonths">
             <End Role="CalendarMonths" EntitySet="CalendarMonths" />
-            <End Role="Expenses" EntitySet="Expenses" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Expenses_CalendarYears" Association="Self.FK_Expenses_CalendarYears">
-            <End Role="CalendarYears" EntitySet="CalendarYears" />
             <End Role="Expenses" EntitySet="Expenses" />
           </AssociationSet>
           <AssociationSet Name="FK_ExpenseDetails_ExpenseResponsibilities" Association="Self.FK_ExpenseDetails_ExpenseResponsibilities">
@@ -837,7 +838,59 @@
             <End Role="Tenants" EntitySet="Tenants" />
             <End Role="TenantLeaseInfo" EntitySet="TenantLeaseInfoes" />
           </AssociationSet>
+          <EntitySet Name="ExpenseAlerts" EntityType="LeaseAdminModel.ExpenseAlert" />
+          <AssociationSet Name="FK_ExpenseAlerts_VendorId" Association="LeaseAdminModel.FK_ExpenseAlerts_VendorId">
+            <End Role="Vendor" EntitySet="Vendors" />
+            <End Role="ExpenseAlert" EntitySet="ExpenseAlerts" />
+          </AssociationSet>
+          <EntitySet Name="CalendarYears" EntityType="LeaseAdminModel.CalendarYear" />
+          <AssociationSet Name="FK_Expenses_CalendarYears" Association="LeaseAdminModel.FK_Expenses_CalendarYears">
+            <End Role="CalendarYear" EntitySet="CalendarYears" />
+            <End Role="Expense" EntitySet="Expenses" />
+          </AssociationSet>
         </EntityContainer>
+        <EntityType Name="ExpenseAlert">
+          <Key>
+            <PropertyRef Name="ExpenseAlertID" />
+          </Key>
+          <Property Name="ExpenseAlertID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="VendorId" Type="Int32" Nullable="false" />
+          <Property Name="CreatedAt" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="ModifiedAt" Type="DateTime" Nullable="false" Precision="3" />
+          <NavigationProperty Name="Vendor" Relationship="LeaseAdminModel.FK_ExpenseAlerts_VendorId" FromRole="ExpenseAlert" ToRole="Vendor" />
+        </EntityType>
+        <Association Name="FK_ExpenseAlerts_VendorId">
+          <End Type="LeaseAdminModel.Vendor" Role="Vendor" Multiplicity="1" />
+          <End Type="LeaseAdminModel.ExpenseAlert" Role="ExpenseAlert" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Vendor">
+              <PropertyRef Name="VendorID" />
+            </Principal>
+            <Dependent Role="ExpenseAlert">
+              <PropertyRef Name="VendorId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="CalendarYear">
+          <Key>
+            <PropertyRef Name="CalendarYearID" />
+          </Key>
+          <Property Name="CalendarYearID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="CalYear" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Expenses" Relationship="LeaseAdminModel.FK_Expenses_CalendarYears" FromRole="CalendarYear" ToRole="Expense" />
+        </EntityType>
+        <Association Name="FK_Expenses_CalendarYears">
+          <End Type="LeaseAdminModel.CalendarYear" Role="CalendarYear" Multiplicity="1" />
+          <End Type="LeaseAdminModel.Expense" Role="Expense" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CalendarYear">
+              <PropertyRef Name="CalendarYearID" />
+            </Principal>
+            <Dependent Role="Expense">
+              <PropertyRef Name="ServiceYearId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -857,14 +910,6 @@
               <MappingFragment StoreEntitySet="CalendarMonths">
                 <ScalarProperty Name="CalendarMonthID" ColumnName="CalendarMonthID" />
                 <ScalarProperty Name="CalMonth" ColumnName="CalMonth" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="CalendarYears">
-            <EntityTypeMapping TypeName="LeaseAdminModel.CalendarYear">
-              <MappingFragment StoreEntitySet="CalendarYears">
-                <ScalarProperty Name="CalendarYearID" ColumnName="CalendarYearID" />
-                <ScalarProperty Name="CalYear" ColumnName="CalYear" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -1066,6 +1111,24 @@
                 <ScalarProperty Name="Description" ColumnName="Description" />
                 <ScalarProperty Name="CreatedAt" ColumnName="CreatedAt" />
                 <ScalarProperty Name="ModfiedAt" ColumnName="ModfiedAt" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ExpenseAlerts">
+            <EntityTypeMapping TypeName="LeaseAdminModel.ExpenseAlert">
+              <MappingFragment StoreEntitySet="ExpenseAlerts">
+                <ScalarProperty Name="ModifiedAt" ColumnName="ModifiedAt" />
+                <ScalarProperty Name="CreatedAt" ColumnName="CreatedAt" />
+                <ScalarProperty Name="VendorId" ColumnName="VendorId" />
+                <ScalarProperty Name="ExpenseAlertID" ColumnName="ExpenseAlertID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="CalendarYears">
+            <EntityTypeMapping TypeName="LeaseAdminModel.CalendarYear">
+              <MappingFragment StoreEntitySet="CalendarYears">
+                <ScalarProperty Name="CalYear" ColumnName="CalYear" />
+                <ScalarProperty Name="CalendarYearID" ColumnName="CalendarYearID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
