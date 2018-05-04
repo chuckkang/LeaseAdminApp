@@ -164,6 +164,7 @@
     <Compile Include="Controllers\RegisterController.cs" />
     <Compile Include="Controllers\TenantLeaseInfoesController.cs" />
     <Compile Include="Controllers\TenantsController.cs" />
+    <Compile Include="Controllers\TestController.cs" />
     <Compile Include="Controllers\VendorsController.cs" />
     <Compile Include="DataClasses\Alerts.cs" />
     <Compile Include="DataClasses\LoadData.cs" />
@@ -356,6 +357,7 @@
     <Content Include="Views\TenantLeaseInfoes\Index.cshtml" />
     <Content Include="Views\Register\Index.cshtml" />
     <Content Include="Views\Shared\UserCreatePartial.cshtml" />
+    <Content Include="Views\Test\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
