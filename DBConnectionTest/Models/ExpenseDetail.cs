@@ -25,7 +25,7 @@ namespace DBConnectionTest.Models
         public Nullable<System.DateTime> ModifiedAt { get; set; }
     
         public virtual ExpenseResponsibility ExpenseResponsibility { get; set; }
-        public virtual Expense Expens { get; set; }
+        public virtual Expens Expens { get; set; }
         public virtual ExpensesType ExpensesType { get; set; }
     }
 }

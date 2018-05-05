@@ -17,13 +17,13 @@ namespace DBConnectionTest.Models
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public TenderType()
         {
-            this.Expenses = new HashSet<Expense>();
+            this.Expenses = new HashSet<Expens>();
         }
     
         public int TenderTypeID { get; set; }
         public string Tender { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Expense> Expenses { get; set; }
+        public virtual ICollection<Expens> Expenses { get; set; }
     }
 }

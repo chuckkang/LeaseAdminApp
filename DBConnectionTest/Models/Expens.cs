@@ -12,10 +12,10 @@ namespace DBConnectionTest.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class Expense
+    public partial class Expens
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Expense()
+        public Expens()
         {
             this.ExpenseDetails = new HashSet<ExpenseDetail>();
         }
@@ -37,10 +37,10 @@ namespace DBConnectionTest.Models
     
         public virtual BusinessDate BusinessDate { get; set; }
         public virtual CalendarMonth CalendarMonth { get; set; }
+        public virtual CalendarYear CalendarYear { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<ExpenseDetail> ExpenseDetails { get; set; }
         public virtual TenderType TenderType { get; set; }
         public virtual Vendor Vendor { get; set; }
-        public virtual CalendarYear CalendarYear { get; set; }
     }
 }
