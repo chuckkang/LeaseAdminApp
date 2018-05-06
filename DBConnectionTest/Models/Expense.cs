@@ -12,10 +12,10 @@ namespace DBConnectionTest.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class Expens
+    public partial class Expense
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Expens()
+        public Expense()
         {
             this.ExpenseDetails = new HashSet<ExpenseDetail>();
         }

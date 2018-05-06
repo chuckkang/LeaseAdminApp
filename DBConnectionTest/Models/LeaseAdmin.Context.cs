@@ -13,10 +13,10 @@ namespace DBConnectionTest.Models
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
     
-    public partial class FresnoLeaseEntities : DbContext
+    public partial class LeaseAdminEntities : DbContext
     {
-        public FresnoLeaseEntities()
-            : base("name=FresnoLeaseEntities")
+        public LeaseAdminEntities()
+            : base("name=LeaseAdminEntities")
         {
         }
     
@@ -31,7 +31,7 @@ namespace DBConnectionTest.Models
         public virtual DbSet<ExpenseAlert> ExpenseAlerts { get; set; }
         public virtual DbSet<ExpenseDetail> ExpenseDetails { get; set; }
         public virtual DbSet<ExpenseResponsibility> ExpenseResponsibilities { get; set; }
-        public virtual DbSet<Expens> Expenses { get; set; }
+        public virtual DbSet<Expense> Expenses { get; set; }
         public virtual DbSet<ExpensesType> ExpensesTypes { get; set; }
         public virtual DbSet<Frequency> Frequencies { get; set; }
         public virtual DbSet<GeneralNote> GeneralNotes { get; set; }

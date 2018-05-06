@@ -180,7 +180,7 @@
     <Compile Include="Models\CalendarYear.cs">
       <DependentUpon>LeaseAdmin.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\Expens.cs">
+    <Compile Include="Models\Expense.cs">
       <DependentUpon>LeaseAdmin.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\ExpenseAlert.cs">
@@ -243,6 +243,11 @@
     <Compile Include="Models\Vendor.cs">
       <DependentUpon>LeaseAdmin.tt</DependentUpon>
     </Compile>
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+      <DependentUpon>Settings.settings</DependentUpon>
+    </Compile>
     <Compile Include="ViewModels\DashboardViewModel.cs" />
     <Compile Include="ViewModels\ExpenseAndDetailsViewModel.cs" />
     <Compile Include="Models\Metadata.cs" />
@@ -289,6 +294,10 @@
     <Content Include="Models\LeaseAdmin.edmx.diagram">
       <DependentUpon>LeaseAdmin.edmx</DependentUpon>
     </Content>
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
@@ -396,7 +405,7 @@
           <AutoAssignPort>True</AutoAssignPort>
           <DevelopmentServerPort>50010</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
-          <IISUrl>http://localhost:50010/</IISUrl>
+          <IISUrl>http://localhost:50020/</IISUrl>
           <NTLMAuthentication>False</NTLMAuthentication>
           <UseCustomServer>False</UseCustomServer>
           <CustomServerUrl>

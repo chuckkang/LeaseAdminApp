@@ -500,7 +500,7 @@
           <Property Name="ResponsibilityMemo" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="ExpenseDetails" Relationship="Self.FK_ExpenseDetails_ExpenseResponsibilities" FromRole="ExpenseResponsibilities" ToRole="ExpenseDetails" />
         </EntityType>
-        <EntityType Name="Expens">
+        <EntityType Name="Expense">
           <Key>
             <PropertyRef Name="ExpenseID" />
           </Key>
@@ -681,7 +681,7 @@
         </EntityType>
         <Association Name="FK_Expenses_BusinessDates">
           <End Role="BusinessDates" Type="Self.BusinessDate" Multiplicity="1" />
-          <End Role="Expenses" Type="Self.Expens" Multiplicity="*" />
+          <End Role="Expenses" Type="FresnoLeaseModel.Expense" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="BusinessDates">
               <PropertyRef Name="DateID" />
@@ -705,7 +705,7 @@
         </Association>
         <Association Name="FK_Expenses_CalendarMonths">
           <End Role="CalendarMonths" Type="Self.CalendarMonth" Multiplicity="1" />
-          <End Role="Expenses" Type="Self.Expens" Multiplicity="*" />
+          <End Role="Expenses" Type="FresnoLeaseModel.Expense" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="CalendarMonths">
               <PropertyRef Name="CalendarMonthID" />
@@ -717,7 +717,7 @@
         </Association>
         <Association Name="FK_Expenses_CalendarYears">
           <End Role="CalendarYears" Type="Self.CalendarYear" Multiplicity="1" />
-          <End Role="Expenses" Type="Self.Expens" Multiplicity="*" />
+          <End Role="Expenses" Type="FresnoLeaseModel.Expense" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="CalendarYears">
               <PropertyRef Name="CalendarYearID" />
@@ -752,7 +752,7 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_ExpenseDetails_Expenses">
-          <End Role="Expenses" Type="Self.Expens" Multiplicity="1" />
+          <End Role="Expenses" Type="FresnoLeaseModel.Expense" Multiplicity="1" />
           <End Role="ExpenseDetails" Type="Self.ExpenseDetail" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Expenses">
@@ -777,7 +777,7 @@
         </Association>
         <Association Name="FK_Expenses_TenderTypes">
           <End Role="TenderTypes" Type="Self.TenderType" Multiplicity="1" />
-          <End Role="Expenses" Type="Self.Expens" Multiplicity="*" />
+          <End Role="Expenses" Type="FresnoLeaseModel.Expense" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="TenderTypes">
               <PropertyRef Name="TenderTypeID" />
@@ -789,7 +789,7 @@
         </Association>
         <Association Name="FK_Expenses_Vendors">
           <End Role="Vendors" Type="Self.Vendor" Multiplicity="1" />
-          <End Role="Expenses" Type="Self.Expens" Multiplicity="*" />
+          <End Role="Expenses" Type="FresnoLeaseModel.Expense" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Vendors">
               <PropertyRef Name="VendorID" />
@@ -823,14 +823,14 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <EntityContainer Name="FresnoLeaseEntities" annotation:LazyLoadingEnabled="true">
+        <EntityContainer Name="LeaseAdminEntities" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="BusinessDates" EntityType="Self.BusinessDate" />
           <EntitySet Name="CalendarMonths" EntityType="Self.CalendarMonth" />
           <EntitySet Name="CalendarYears" EntityType="Self.CalendarYear" />
           <EntitySet Name="ExpenseAlerts" EntityType="Self.ExpenseAlert" />
           <EntitySet Name="ExpenseDetails" EntityType="Self.ExpenseDetail" />
           <EntitySet Name="ExpenseResponsibilities" EntityType="Self.ExpenseResponsibility" />
-          <EntitySet Name="Expenses" EntityType="Self.Expens" />
+          <EntitySet Name="Expenses" EntityType="FresnoLeaseModel.Expense" />
           <EntitySet Name="ExpensesTypes" EntityType="Self.ExpensesType" />
           <EntitySet Name="Frequencies" EntityType="Self.Frequency" />
           <EntitySet Name="GeneralNotes" EntityType="Self.GeneralNote" />
@@ -897,7 +897,7 @@
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
-        <EntityContainerMapping StorageEntityContainer="FresnoLeaseModelStoreContainer" CdmEntityContainer="FresnoLeaseEntities">
+        <EntityContainerMapping StorageEntityContainer="FresnoLeaseModelStoreContainer" CdmEntityContainer="LeaseAdminEntities">
           <EntitySetMapping Name="BusinessDates">
             <EntityTypeMapping TypeName="FresnoLeaseModel.BusinessDate">
               <MappingFragment StoreEntitySet="BusinessDates">
@@ -957,7 +957,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Expenses">
-            <EntityTypeMapping TypeName="FresnoLeaseModel.Expens">
+            <EntityTypeMapping TypeName="FresnoLeaseModel.Expense">
               <MappingFragment StoreEntitySet="Expenses">
                 <ScalarProperty Name="ExpenseID" ColumnName="ExpenseID" />
                 <ScalarProperty Name="ExpenseDateID" ColumnName="ExpenseDateID" />
