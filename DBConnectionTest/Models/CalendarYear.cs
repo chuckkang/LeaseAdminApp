@@ -21,7 +21,7 @@ namespace DBConnectionTest.Models
         }
     
         public int CalendarYearID { get; set; }
-        public int CalYear { get; set; }
+        public string CalYear { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Expense> Expenses { get; set; }

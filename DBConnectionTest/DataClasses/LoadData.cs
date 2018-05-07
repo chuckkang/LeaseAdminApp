@@ -24,7 +24,7 @@ namespace DBConnectionTest.DataClasses
             // this is to be called from the app_start
             VendorList = db.Vendors.OrderBy(v=>v.VendorName).ToList();
             CalendarMonthList = db.CalendarMonths.ToList();
-            //CalendarYearList = db.CalendarYears.OrderByDescending(y=>y.CalYear).ToList();
+            CalendarYearList = db.CalendarYears.OrderByDescending(y => y.CalYear).ToList();
             TenderTypeList = db.TenderTypes.OrderBy(t=>t.Tender).ToList();
             BusinessDateList = db.BusinessDates.OrderByDescending(y => y.BusinessDay).ToList();
             ExpenseResponsibilityList = db.ExpenseResponsibilities.OrderBy(t => t.ExpenseResponsibilityType).ToList();
